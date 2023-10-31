@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\tests\_support;
+namespace frontend\tests;
 
 /**
  * Inherited Methods
