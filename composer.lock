@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "991433990e8e9012ab9da4ac6cde2f1e",
+    "content-hash": "25ed1bb104e4a85a318804a6e6b3360d",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -4575,12 +4575,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "858c7b53757af032320e91b89f3f26d7ffd6ab9c"
+                "reference": "c5cff26e1aab4126118f3e5f96029e0678adcaaf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/858c7b53757af032320e91b89f3f26d7ffd6ab9c",
-                "reference": "858c7b53757af032320e91b89f3f26d7ffd6ab9c",
+                "url": "https://api.github.com/repos/symfony/console/zipball/c5cff26e1aab4126118f3e5f96029e0678adcaaf",
+                "reference": "c5cff26e1aab4126118f3e5f96029e0678adcaaf",
                 "shasum": ""
             },
             "require": {
@@ -4661,7 +4661,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-10-31T08:18:17+00:00"
+            "time": "2023-10-31T08:40:20+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -4669,12 +4669,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "40eff9db7468587bbf18416ec5cbc2ee6867a356"
+                "reference": "d036c6c0d0b09e24a14a35f8292146a658f986e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/40eff9db7468587bbf18416ec5cbc2ee6867a356",
-                "reference": "40eff9db7468587bbf18416ec5cbc2ee6867a356",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/d036c6c0d0b09e24a14a35f8292146a658f986e4",
+                "reference": "d036c6c0d0b09e24a14a35f8292146a658f986e4",
                 "shasum": ""
             },
             "require": {
@@ -4726,7 +4726,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-07-30T09:31:49+00:00"
+            "time": "2023-10-31T08:40:20+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -5652,7 +5652,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.1"
+        "php": ">=8.0"
     },
     "platform-dev": [],
     "plugin-api-version": "2.6.0"
