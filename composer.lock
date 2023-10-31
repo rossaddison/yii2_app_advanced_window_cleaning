@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "25ed1bb104e4a85a318804a6e6b3360d",
+    "content-hash": "3823d3b4aa0760a05c7a20d4a5a8f5c0",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -4575,12 +4575,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "c5cff26e1aab4126118f3e5f96029e0678adcaaf"
+                "reference": "4cd5311e4ef08baa6d7eeb05c077be3f1b536337"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/c5cff26e1aab4126118f3e5f96029e0678adcaaf",
-                "reference": "c5cff26e1aab4126118f3e5f96029e0678adcaaf",
+                "url": "https://api.github.com/repos/symfony/console/zipball/4cd5311e4ef08baa6d7eeb05c077be3f1b536337",
+                "reference": "4cd5311e4ef08baa6d7eeb05c077be3f1b536337",
                 "shasum": ""
             },
             "require": {
@@ -4661,7 +4661,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-10-31T08:40:20+00:00"
+            "time": "2023-10-31T15:22:49+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -5652,7 +5652,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.0"
+        "php": ">=7.4"
     },
     "platform-dev": [],
     "plugin-api-version": "2.6.0"
