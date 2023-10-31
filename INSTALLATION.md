@@ -37,7 +37,7 @@ Which environment do you want the application to be initialized in?
   Your choice [0-1, or "q" to quit] 0
 ````
 
-frontend/web now has an index file after the ````php init```` command has been exectued and  will open the first page.
+frontend/web folder now has an index file after the ````php init```` command has been exectued,  and  will now open the first page.
 
 But there is no User table yet so the signup will not run so
 
@@ -46,4 +46,27 @@ But there is no User table yet so the signup will not run so
 3. run the ````yii migrate```` command from the console directory to create
 a. the user table used for signing up and logging in.
 b. the migration table which will record this migration and create a migration history
+
+````
+c:\wamp64\www\yii2_advanced_window_cleaning>yii migrate 
+````
+
+If you cannot send an email from your localhost in order to activate your login, you can manually go into table user and change the status from 9 to 10.
+This eliminates the need to setup your symfonymailer temporarily at common/config/main-local.php
+
+https://stackoverflow.com/questions/33653000/yii2-why-using-status-constant-10-instead-of-1
+
+Include an .htaccess file in frontend/web in WAMP document root ensuring that mod_rewrite is enabled on the server: 
+
+````
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php
+# use index.php as index file
+DirectoryIndex index.php
+````
+
+All requests are redirected to the index.php file.
+
 
