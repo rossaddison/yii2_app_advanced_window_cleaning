@@ -46,6 +46,7 @@ $this->registerJs($js);
               'class' => 'navbar navbar-dark bg-dark',
         ],
     ]);
+    
     if (!Yii::$app->user->isGuest){        
         $menuItems = [    
                 ['label' => Html::button(Yii::t('app','Other'),['class'=>'btn btn-info btn-lg']),'url'=> '','visible'=>Yii::$app->user->can('Manage Admin'),
@@ -131,17 +132,20 @@ $this->registerJs($js);
     }  
     if (Yii::$app->user->isGuest) {
              $menuItems[] = ['label' => Html::button(Yii::t('app','Home'),['class'=>'btn btn-success btn-lg','title'=>Yii::t('app','Home'),'data-toggle'=>'tooltip']), 'url' => ['/site/index'],];
-             $menuItems[] = ['label' => Html::button(Yii::t('app','Login'),['class'=>'btn btn-success btn-lg','title'=>Yii::t('app','Login'),'data-toggle'=>'tooltip']), 'url' => ['/libra/login']];
+             $menuItems[] = ['label' => Html::button(Yii::t('app','About'),['class'=>'btn btn-success btn-lg','title'=>Yii::t('app','Home'),'data-toggle'=>'tooltip']), 'url' => ['/site/about'],];
+             $menuItems[] = ['label' => Html::button(Yii::t('app','Contact'),['class'=>'btn btn-success btn-lg','title'=>Yii::t('app','Home'),'data-toggle'=>'tooltip']), 'url' => ['/site/contact'],];
+             $menuItems[] = ['label' => Html::button(Yii::t('app','Login'),['class'=>'btn btn-success btn-lg','title'=>Yii::t('app','Login'),'data-toggle'=>'tooltip']), 'url' => ['/site/login']];
     } else {
              $menuItems[] = '<li>'
-            . Html::beginForm(['/libra/logout'], 'post')
+            . Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex'])
             . Html::submitButton(
-                Yii::t('app','Logout (') . Yii::$app->user->identity->attributes['name'].')',
-                ['class' => 'btn btn-secondary logout btn-lg']
+                Yii::t('app','Logout (') . Yii::$app->user->identity->username.')',
+                ['class' => 'btn btn-link logout text-decoration-none']
             )
             . Html::endForm()
             . '</li>';
     }
+    
     echo Nav::widget([
         //'options' => ['class' => 'navbar-nav navbar-right'],
         'encodeLabels'=> false,

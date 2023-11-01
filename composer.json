@@ -16,8 +16,29 @@
     "require": {
         "php": ">=7.4",
         "yiisoft/yii2": "~2.0.45",
+        "yiisoft/yii2-bootstrap4": "*",
         "yiisoft/yii2-bootstrap5": "~2.0.2",
-        "yiisoft/yii2-symfonymailer": "~3.0.0"
+        "yiisoft/yii2-symfonymailer": "~3.0.0",
+                
+        "bizley/cookiemonster": "*",
+        
+        "warrence/yii2-kartikgii": "*",
+        "kartik-v/yii2-bootstrap4-dropdown": "*",
+        "kartik-v/bootstrap-fileinput": "*",
+        "kartik-v/yii2-editable": "*",
+        "kartik-v/yii2-grid":"*",
+        "kartik-v/yii2-widget-timepicker": "*",
+        "kartik-v/yii2-date-range": "*",
+        "kartik-v/yii2-social": "*",
+        "kartik-v/yii2-dynagrid": "*",
+        "kartik-v/yii2-tree-manager": "*",
+        "kartik-v/yii2-mpdf":"*",
+        "kartik-v/bootstrap-star-rating": "*",
+        "kartik-v/yii2-slider": "*",
+        "kartik-v/yii2-number" : "*",
+        "kartik-v/yii2-editors": "*",
+        "kartik-v/yii2-validators": "*",
+        "mpdf/mpdf":"*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
