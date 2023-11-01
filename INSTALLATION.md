@@ -37,13 +37,14 @@ Which environment do you want the application to be initialized in?
   Your choice [0-1, or "q" to quit] 0
 ````
 
-frontend/web folder now has an index file after the ````php init```` command has been exectued,  and  will now open the first page.
+frontend/web folder now has an index file after the ````php init```` command has been executed,  and  will now open the first page.
 
 But there is no User table yet so the signup will not run so
 
 1. Create a database in mysql called wc
 2. Modify the common\config\main-local.php to include wc.
-3. run the ````yii migrate```` command from the console directory to create
+3. Run the ````yii migrate```` command from the console directory to create
+
 a. the user table used for signing up and logging in.
 b. the migration table which will record this migration and create a migration history
 
