@@ -60,6 +60,78 @@ return [
                 'gii/<controller:\w+>/<action:\w+>'=>'gii/<controller>/<action>', 
 	    ],
        ],
+       'authManager' => [
+            'class' => 'yii\rbac\PhpManager'
+       ],   
     ],
     'params' => $params,
+    
+    'modules' => [
+      'google3translateclient'=> [
+             'class'=> 'frontend\modules\google3translateclient\Module',  
+      ],
+      'backuper'=> [
+             'class' => 'frontend\modules\backup\Module',
+      ],
+      'invoice'=>[
+             'class' => 'frontend\modules\invoice\application\Module',
+      ],    
+      'gii' => [
+      'class' => 'yii\gii\Module', //adding gii module
+        'allowedIPs' => ['127.0.0.1','localhost', '::1'],
+                     'generators' => [
+                        'migrik' => [
+                            'class' => \insolita\migrik\gii\StructureGenerator::class,
+                            'templates' => [
+                                'custom' => '@frontend/gii/templates/migrator_schema',
+                            ],
+                        ],
+                        'migrikdata' => [
+                            'class' => \insolita\migrik\gii\DataGenerator::class,
+                            'templates' => [
+                                'custom' => '@frontend/gii/templates/migrator_data',
+                            ],
+                        ],
+                    ],
+       ],
+      'gridview' =>  [
+        'class' => '\kartik\grid\Module'
+       ],
+       'social' => [
+         'class' => 'kartik\social\Module',
+         'googleAnalytics' => [
+            //insert your Google Analytics code here under id.
+            //'id' => 'UA-1111111-1',
+            'domain' => 'localhost',
+            'testMode'=>false,
+         ],
+        ],
+      'treemanager' =>  [
+        'class' => 'kartik\tree\Module',
+        'treeViewSettings'=> [
+            'nodeView' => '@kvtree/views/_form',    
+            'nodeAddlViews' => [
+                1 => '',
+                2 => '',
+                3 => '',
+                4 => '',
+                5 => '@app/views/krajeeproducttree/product',
+        ]]    
+       ],
+       'datecontrol' => [
+        'class' => 'kartik\datecontrol\Module',
+        'displaySettings' => [
+            'date' => 'php:d-M-Y',
+            'time' => 'php:H:i:s A',
+            'datetime' => 'php:d-m-Y H:i:s A',
+        ],
+        'saveSettings' => [
+            'date' => 'php:Y-m-d', 
+            'time' => 'php:H:i:s',
+            'datetime' => 'php:Y-m-d H:i:s',
+        ],
+        // automatically use kartikwidgets for each of the above formats
+        'autoWidget' => true,      
+     ],
+   ],
 ];

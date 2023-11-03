@@ -46,10 +46,10 @@ $this->registerJs($js);
               'class' => 'navbar navbar-dark bg-dark',
         ],
     ]);
-    
+    $visible = Yii::$app->user->id == 1 ? true : false; 
     if (!Yii::$app->user->isGuest){        
         $menuItems = [    
-                ['label' => Html::button(Yii::t('app','Other'),['class'=>'btn btn-info btn-lg']),'url'=> '','visible'=>Yii::$app->user->can('Manage Admin'),
+                ['label' => Html::button(Yii::t('app','Other'),['class'=>'btn btn-info btn-lg']),'url'=> '','visible'=> $visible,
                  'items' => [
                          ['label' => Html::button(Yii::t('app','Company'),['class'=>'btn btn-info btn-lg']), 'url' => ['/company/index'],],
                          ['label' => Html::button(Yii::t('app','Texting - Messages'),['class'=>'btn btn-info btn-lg']), 'url' => ['/messaging/index'],],
@@ -60,7 +60,7 @@ $this->registerJs($js);
                          ['label' => Html::button(Yii::t('app','Instruction'),['class'=>'btn btn-info btn-lg']), 'url' => ['/instruction/index'],],                       
                   ],
                 ],
-                ['label' => Html::button(Yii::t('app','Revenue'),['class'=>'btn btn-success btn-lg']),'url'=> '','visible'=>Yii::$app->user->can('Manage Admin'),
+                ['label' => Html::button(Yii::t('app','Revenue'),['class'=>'btn btn-success btn-lg']),'url'=> '','visible'=>$visible,
                  'items' => [
                          
                          ['label' => Html::button(Yii::t('app','Postcode'),['class'=>'btn btn-success btn-lg']), 'url' => ['/productcategory/index'],],
@@ -71,7 +71,7 @@ $this->registerJs($js);
                          ['label' => str_repeat("&nbsp;", 7).Html::button(Yii::t('app','Invoice'),['class'=>'btn btn-success btn-lg']), 'url' => ['/invoice/salesinvoice/'],],
                   ],
                 ],
-                ['label' => Html::button(Yii::t('app','Expenses'),['class'=>'btn btn-warning btn-lg']),'url'=> '','visible'=>Yii::$app->user->can('Manage Admin'),
+                ['label' => Html::button(Yii::t('app','Expenses'),['class'=>'btn btn-warning btn-lg']),'url'=> '','visible'=>$visible,
                  'items' => [
                         
                          ['label' => Html::button(Yii::t('app','Cost Code'),['class'=>'btn btn-warning btn-lg']), 'url' => ['/costcategory/index'],],
@@ -81,36 +81,27 @@ $this->registerJs($js);
                         
                   ],
                 ],
-                 ['label' => Html::button(Yii::t('app','Database'),['class'=>'btn btn-danger btn-lg']),'url'=> '','visible'=>Yii::$app->user->can('Manage Admin'),
+                 ['label' => Html::button(Yii::t('app','Database'),['class'=>'btn btn-danger btn-lg']),'url'=> '','visible'=>$visible,
                  'items' => [
                          ['label' => Html::button(Yii::t('app','Import Houses'),['class'=>'btn btn-danger btn-lg']), 'url' => ['/importhouses/index'],],
                          ['label' => Html::button(Yii::t('app','Backup database'),['class'=>'btn btn-danger btn-lg',]), 'url' => ['/backuper/backuper/'],],
                          ['label' => Html::button(Yii::t('app','Google Translate'),['class'=>'btn btn-danger btn-lg',]), 'url' => ['/google3translateclient/google3translateclient/index/']],
                    ],
                 ],
-                ['label' => Html::button(Yii::t('app','Admin'),['class'=>'btn btn-info btn-lg']),'url'=> '','visible'=>Yii::$app->user->can('Manage Admin'),
+                ['label' => Html::button(Yii::t('app','Admin'),['class'=>'btn btn-info btn-lg']),'url'=> '','visible'=>$visible,
                  'items' => [
-                            ['label' => str_repeat("&nbsp;", 2).Html::button(Yii::t('app','Role Management (Admin)'),['class'=>'btn btn-info btn-lg']), 'url' => ['/libra/role'],],
-                            ['label' => str_repeat("&nbsp;", 2).Html::button(Yii::t('app','Update Admin'),['class'=>'btn btn-info btn-lg']), 'url' => ['/libra/role/update/admin'],],
-                            ['label' => str_repeat("&nbsp;", 2).Html::button(Yii::t('app','Permission Management (Admin)'),['class'=>'btn btn-info btn-lg']), 'url' => ['/libra/permission'],],
-                            ['label' => str_repeat("&nbsp;", 2).Html::button(Yii::t('app','Conditions/Rules Management (Admin)'),['class'=>'btn btn-info btn-lg']), 'url' => ['/libra/rule/index'],],
-                            ['label' => str_repeat("&nbsp;", 2).Html::button(Yii::t('app','User Management (Support and Admin)'),['class'=>'btn btn-info btn-lg']), 'url' => ['/libra/user'],],
-                            ['label' => str_repeat("&nbsp;", 2).Html::button(Yii::t('app','Delete a User'),['class'=>'btn btn-info btn-lg']), 'url' => ['/libra/delete'],],
-                            ['label' => str_repeat("&nbsp;", 2).Html::button(Yii::t('app','Download User Data'),['class'=>'btn btn-info btn-lg']), 'url' => ['/libra/download'],],
-                            ['label' => str_repeat("&nbsp;", 2).Html::button(Yii::t('app','Change User Name or Email Address'), ['class'=>'btn btn-info btn-lg']),'url' => ['/libra/settings'],],
-                            ['label' => str_repeat("&nbsp;", 2).Html::button(Yii::t('app','User forgot their password'),['class'=>'btn btn-info btn-lg']), 'url' => ['/libra/forgot'],],
-                            ['label' => str_repeat("&nbsp;", 2).Html::button(Yii::t('app','Signup a User'),['class'=>'btn btn-info btn-lg']), 'url' => ['/libra/signup'],],
+                            ['label' => str_repeat("&nbsp;", 2).Html::button(Yii::t('app','Signup a User'),['class'=>'btn btn-info btn-lg']), 'url' => ['/site/signup'],],
                   ],
                 ],
                 ['label' => Html::button(Yii::t('app','Quick Note'),['class'=>'btn btn-primary btn-lg']),'url'=> '/quicknote/create','visible'=>Yii::$app->user->can('Manage Basic'),
                  'items' => [                        
                 ],
                 ],
-                ['label' => Html::button(Yii::t('app','Gii'),['class'=>'btn btn-success btn-lg']),'url'=> '/gii','visible'=>Yii::$app->user->can('Manage Admin'),
+                ['label' => Html::button(Yii::t('app','Gii'),['class'=>'btn btn-success btn-lg']),'url'=> '/gii','visible'=>$visible,
                  'items' => [                        
                 ],
                 ],
-                ['label' => Html::button(Yii::t('app','Invoicing'),['class'=>'btn btn-warning btn-lg']),'url'=> '','visible'=>Yii::$app->user->can('Manage Admin'),
+                ['label' => Html::button(Yii::t('app','Invoicing'),['class'=>'btn btn-warning btn-lg']),'url'=> '','visible'=>$visible,
                  'items' => [ 
                             ['label' => str_repeat("&nbsp;", 2).Html::button(Yii::t('app','Settings - Interface'),['class'=>'btn btn-warning btn-lg']), 'url' => ['/invoice/ip/settings'],],
                             ['label' => str_repeat("&nbsp;", 2).Html::button(Yii::t('app','Settings - Model'),['class'=>'btn btn-warning btn-lg']), 'url' => ['/invoice/ip/list'],],
@@ -119,7 +110,7 @@ $this->registerJs($js);
                             ['label' => str_repeat("&nbsp;", 4).Html::button(Yii::t('app','Sales Invoice'),['class'=>'btn btn-warning btn-lg']), 'url' => ['/invoice/salesinvoice'],],
                             ['label' => str_repeat("&nbsp;", 4).Html::button(Yii::t('app','Sales Invoice Payment Method'),['class'=>'btn btn-warning btn-lg']), 'url' => ['/invoice/salesinvoicemethodpay'],],
                             ['label' => str_repeat("&nbsp;", 5).Html::button(Yii::t('app','Sales Invoice Payment'),['class'=>'btn btn-warning btn-lg']), 'url' => ['/invoice/salesinvoicepayment'],],
-                            ['label' => str_repeat("&nbsp;", 6).Html::button(Yii::t('app','Signup an Invoice Payer'),['class'=>'btn btn-warning btn-lg','title'=>Yii::t('app','Give the "Make payment online" permission to the signed up householder/payer.'),'data-toggle'=>'tooltip']), 'url' => ['/libra/signup'],],
+                            ['label' => str_repeat("&nbsp;", 6).Html::button(Yii::t('app','Signup an Invoice Payer'),['class'=>'btn btn-warning btn-lg','title'=>Yii::t('app','Give the "viewPermission" permission to the signed up householder/payer.'),'data-bs-toggle'=>'tooltip']), 'url' => ['/site/signup'],],
                      
                 ],
                 ],
@@ -131,10 +122,11 @@ $this->registerJs($js);
              ];
     }  
     if (Yii::$app->user->isGuest) {
-             $menuItems[] = ['label' => Html::button(Yii::t('app','Home'),['class'=>'btn btn-success btn-lg','title'=>Yii::t('app','Home'),'data-toggle'=>'tooltip']), 'url' => ['/site/index'],];
-             $menuItems[] = ['label' => Html::button(Yii::t('app','About'),['class'=>'btn btn-success btn-lg','title'=>Yii::t('app','Home'),'data-toggle'=>'tooltip']), 'url' => ['/site/about'],];
-             $menuItems[] = ['label' => Html::button(Yii::t('app','Contact'),['class'=>'btn btn-success btn-lg','title'=>Yii::t('app','Home'),'data-toggle'=>'tooltip']), 'url' => ['/site/contact'],];
-             $menuItems[] = ['label' => Html::button(Yii::t('app','Login'),['class'=>'btn btn-success btn-lg','title'=>Yii::t('app','Login'),'data-toggle'=>'tooltip']), 'url' => ['/site/login']];
+             $menuItems[] = ['label' => Html::button(Yii::t('app','Home'),['class'=>'btn btn-success btn-lg','title'=>Yii::t('app','Home'),'data-bs-toggle'=>'tooltip']), 'url' => ['/site/index'],];
+             $menuItems[] = ['label' => Html::button(Yii::t('app','About'),['class'=>'btn btn-success btn-lg','title'=>Yii::t('app','AboutHome'),'data-bs-toggle'=>'tooltip']), 'url' => ['/site/about'],];
+             $menuItems[] = ['label' => Html::button(Yii::t('app','Contact'),['class'=>'btn btn-success btn-lg','title'=>Yii::t('app','Home'),'data-bs-toggle'=>'tooltip']), 'url' => ['/site/contact'],];
+             $menuItems[] = ['label' => Html::button(Yii::t('app','Login'),['class'=>'btn btn-success btn-lg','title'=>Yii::t('app','Login'),'data-bs-toggle'=>'tooltip']), 'url' => ['/site/login']];
+             
     } else {
              $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex'])

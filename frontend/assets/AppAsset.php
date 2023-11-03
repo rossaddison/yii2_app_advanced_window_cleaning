@@ -3,21 +3,36 @@
 namespace frontend\assets;
 
 use yii\web\AssetBundle;
-
+use yii\bootstrap4\BootstrapAsset;
+use yii\web\YiiAsset;
+use yii\web\JqueryAsset;
+/**
 /**
  * Main frontend application asset bundle.
  */
 class AppAsset extends AssetBundle
 {
-    public $basePath = '@webroot';
-    public $baseUrl = '@web';
-    public $css = [
+    
+    public $sourcePath = '@app/assets/app';
+    
+    public $basePath = '@app'; 
+    
+    public $css = [        
         'css/site.css',
+        '//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css',
+        '//use.fontawesome.com/releases/v5.3.1/css/all.css',
+        '//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css'
     ];
-    public $js = [
+    
+    public $js = [ 'js/scripts2.js',
+                   'js/scripts_slider.js',
+                   'js/scripts_gocardless.js',
+                   'js/ajax-modal-popup.js'
     ];
+    
     public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap5\BootstrapAsset',
+        BootstrapAsset::class,        
+        YiiAsset::class,        
+        JqueryAsset::class,
     ];
 }
