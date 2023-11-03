@@ -34,7 +34,18 @@ class m231101_162925_init_rbac extends Migration
         $auth->add($observer);
         $auth->addChild($observer, $viewPermission);
         
-        $auth->assign($observer, 2);
+        // Estimated number of paying clients that you as administrator will signup
+        // Only a logged in administrator will be able to signup and send an activation email to the client
+        // or manually change the user status in the user table from 9 to 10 which is quite tedious
+        // The signup facility will not be exposed to the public
+        // The signup function in the SiteController has been modified accordingly to only authorize the admin to perform the signing up
+         
+        $number_of_paying_clients = 5;
+        for ($user_id = 2;  $user_id <= ($number_of_paying_clients + 1); $user_id++) {
+           $auth->assign($observer, $user_id);
+        }
+
+        // User id 1:  admin role with viewPermission, and editPermission permissions 
         $auth->assign($admin, 1);
     }
 
