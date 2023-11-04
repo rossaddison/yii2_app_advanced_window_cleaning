@@ -37,7 +37,7 @@ class SalesinvoicemethodpayController extends Controller
                             ],
                             [
                                   'allow' => true,
-                                  'roles' => ['Admin','Manage Admin'],
+                                  'roles' => ['admin'],
                             ],
                             ],
             ],   

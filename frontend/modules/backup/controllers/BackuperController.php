@@ -26,7 +26,7 @@ class BackuperController extends Controller
                             'rules' => [
                             [
                               'allow' => true,
-                              'roles' => ['admin','support'],
+                              'roles' => ['admin'],
                             ],
                             [
                               'allow' => false,
@@ -68,14 +68,19 @@ class BackuperController extends Controller
                 $database_handle = 'db';
                 $database = Yii::$app->$database_handle->createCommand("SELECT DATABASE()")->queryScalar();
                 $dumpit = new IMysqldump\Mysqldump('mysql:host=localhost;dbname='.$database.'', Yii::$app->$database_handle->username, Yii::$app->$database_handle->password);
-                $basepath = \Yii::getAlias('@webroot');
+                // @see common\config\bootstrap
+                $basepath = \Yii::getAlias('@base_root');
                 $timestamp = time();
                 $model->save_from_path = "/mysqlbackup/".$timestamp."_".Yii::$app->security->generateRandomString()."_".$database_handle;
                 $model->path = $basepath .  $model->save_from_path;
                 //$path = $basepath . "/mysqlbackup/".$database_handle;
-                mkdir($model->path,0777); 
-                if (is_dir($model->path)){$model->created_directory_successfully = true;}
-                else {$model->created_directory_successfully = false;}
+                mkdir($model->path, 0777); 
+                if (is_dir($model->path)){
+                    $model->created_directory_successfully = true;
+                }
+                else {
+                    $model->created_directory_successfully = false;                    
+                }
 	        $model->path_and_filename = $basepath . $model->save_from_path."/".$timestamp.".sql";
                 $model->save_from_path_and_filename = $model->save_from_path . "/".$timestamp.".sql";
                 $dumpit->start($model->path_and_filename);
@@ -83,16 +88,15 @@ class BackuperController extends Controller
                 $model->resultmessage = 'mysqldump-php error: ' . $e->getMessage();
             }
             return $this->render('dump',
-                     [
-                       'dumpit'=>$dumpit,
-                       'model' => $model,
-                       'path' => $model->path,
-                       'path_and_filename' => $model->path_and_filename,
-                       'resultmessage'=> $model->resultmessage,  
-                       'created_directory_successfully'=>$model->created_directory_successfully,
-                       'save_from_path'=>$model->save_from_path,
-                     ]
+                [
+                  'dumpit'=>$dumpit,
+                  'model' => $model,
+                  'path' => $model->path,
+                  'path_and_filename' => $model->path_and_filename,
+                  'resultmessage'=> $model->resultmessage,  
+                  'created_directory_successfully'=>$model->created_directory_successfully,
+                  'save_from_path'=>$model->save_from_path,
+                ]
              );
-            
      }
 }

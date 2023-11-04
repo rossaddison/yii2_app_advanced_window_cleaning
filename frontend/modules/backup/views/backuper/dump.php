@@ -1,7 +1,6 @@
 <?php
 use \kartik\icons\Icon;
 use \kartik\form\ActiveForm;
-use yii\helpers\Html;
 use yii\helpers\Url;
 
 $this->title = 'mySql';
@@ -20,8 +19,7 @@ $form = ActiveForm::begin([
     <div class="col-md-8 col-md-offset-2">
     <?php if ($created_directory_successfully === true) {?>
         <h2>
-            <?= Html::a(Yii::t('app','Download'), Url::to($model->save_from_path_and_filename), ['class' => 'btn btn-success','data-toggle'=>'tooltip','title'=>Yii::t('app','Save your backup to your local drive in a safe place.')]) ?>
-            <?php //var_dump($dumpit); ?>
+            <?php echo Yii::t('app', 'Your backup has been saved to : ' . $model->save_from_path_and_filename); ?>
         </h2>
     <?php } ?>
     <?php if ($created_directory_successfully === false) {?>

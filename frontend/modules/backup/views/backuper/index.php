@@ -25,7 +25,7 @@ $form = ActiveForm::begin([
 <?php if ($docRoot === false): ?>
     <div class="alert alert-danger">
         <strong><?= Yii::t('app', 'Your DocumentRoot below is not correctly set. ') ?></strong>
-        <code><?php echo realpath(Yii::getAlias('@webroot')) ?></code>.  
+        <code><?php echo realpath(Yii::getAlias('@base_root')) ?></code>.  
     </div>
 <?php endif; ?>
 </div>
@@ -40,12 +40,14 @@ $form = ActiveForm::begin([
     <div class="alert alert-info">
     <p>
             <?= Yii::t('app', 'Your document root is correctly set to: ') ?>
-            <code><?php echo realpath(Yii::getAlias('@webroot')) ?></code>.
+            <code><?php echo realpath(Yii::getAlias('@base_root')) ?></code>
+            <?= Yii::t('app', ' and your backup folder will be saved to folder: ') ?>
+            <code><?php echo realpath(Yii::getAlias('@base_root'). '/mysqlbackup') ?></code>.
     </p>
     </div>
     <?php endif; ?>
     <a href="<?= Url::toRoute(['dump']) ?>" class="btn btn-primary btn-lg pull-right ladda-button" data-style="expand-left">
-        <?= Yii::t('app', 'Next') ?>
+        <?= Yii::t('app', 'Backup Now') ?>
         <?php echo Icon::show('arrow-right') ?>
     </a>
 </div>
