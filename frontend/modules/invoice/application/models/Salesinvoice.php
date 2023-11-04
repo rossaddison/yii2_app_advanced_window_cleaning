@@ -8,7 +8,7 @@ use frontend\modules\invoice\application\models\SalesinvoicePayment;
 use frontend\modules\invoice\application\models\SalesinvoiceUploads;
 use frontend\models\Salesorderdetail;
 use frontend\models\Product;
-use sjaakp\pluto\models\User;
+use common\models\User;
 use Yii;
 use yii\db\Expression;
 

@@ -114,7 +114,7 @@ $this->registerJs($js);
                      
                 ],
                 ],
-                ['label' => Html::button(Yii::t('app','Make a payment'),['class'=>'btn btn-warning btn-lg']),'url'=> '','visible'=>Yii::$app->user->can('Make payment online'),
+                ['label' => Html::button(Yii::t('app','Make a payment'),['class'=>'btn btn-warning btn-lg']),'url'=> '','visible'=> (Yii::$app->user->can('viewPermission') && !Yii::$app->user->can('editPermission')),
                  'items' => [ 
                             ['label' => str_repeat("&nbsp;", 2).Html::button(Yii::t('app','View Invoices'),['class'=>'btn btn-warning btn-lg']), 'url' => ['/invoice/guest/index'],],
                             ],

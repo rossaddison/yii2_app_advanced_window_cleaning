@@ -36,18 +36,18 @@ class SalesinvoiceController extends Controller
                             ],
                 'access' => 
                             [
-                              'class' => \yii\filters\AccessControl::className(),
-                              'only' => ['init','index','create','view','update','pdf'],
-                              'rules' => [
-                            [
-                                'allow' => true,
-                                'verbs' => ['POST']
-                            ],
-                            [
-                                  'allow' => true,
-                                  'roles' => ['admin'],
-                            ],
-                            ],
+                                'class' => \yii\filters\AccessControl::className(),
+                                'only' => ['init','index','create','view','update','pdf'],
+                                'rules' => [
+                                    [
+                                        'allow' => true,
+                                        'verbs' => ['POST']
+                                    ],
+                                    [
+                                        'allow' => true,
+                                        'roles' => ['admin'],
+                                    ],
+                                ],
                             ],            
         ];
          

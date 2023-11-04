@@ -26,7 +26,7 @@ use yii\db\Query;
 use yii\db\Expression;
 use yii\behaviors\TimestampBehavior;
 use yii\di\ServiceLocator;
-use sjaakp\pluto\models\User;
+use common\models\User;
 use frontend\modules\invoice\application\models\ci\Mdl_settings;
 
 class ProductController extends Controller

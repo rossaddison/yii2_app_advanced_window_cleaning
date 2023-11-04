@@ -52,7 +52,7 @@ class PaymenthandlerController extends GuestController
                             ],
                             [
                                   'allow' => true,
-                                  'roles' => ['Online Payer'],
+                                  'roles' => ['observer'],
                             ],
                             ],
                             ],            

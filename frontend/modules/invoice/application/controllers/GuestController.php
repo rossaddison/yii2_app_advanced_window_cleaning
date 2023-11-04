@@ -8,7 +8,6 @@ use frontend\modules\invoice\application\helpers\DateHelper;
 use frontend\modules\invoice\application\models\ci\Mdl_settings;
 use Yii;
 use yii\web\Controller;
-use yii\db\Expression;
 use yii\db\Query;
 
 class GuestController extends Controller
@@ -45,14 +44,14 @@ class GuestController extends Controller
     public function actionIndex()
     {
         $this->layout = 'layout_guest';
-        //the user has been registered by you (preferably with fencemode on), assigned the 'Make a payment online' permission via RBAC sjaak/pluto
-        If (Yii::$app->user->can('Make payment online')){
+        //the user has been registered by you and assigned the 'viewPermission' permission via RBAC 
+        // the user here has the observer role identified by these two permissions
+        If ((Yii::$app->user->can('viewPermission') && (!Yii::$app->user->can('editPermission')))) {
             if (!empty($this->houses)) {
-                $now = new Expression('NOW()'); 
                     $overdue_invoices = Salesinvoice::find()->where(['in','product_id',$this->houses])
                                                             ->andWhere(['<>','invoice_status_id', 1])
                                                             ->andWhere(['<>','invoice_status_id', 4])
-                                                            ->andWhere(['>',$now,'invoice_date_due'])
+                                                            ->andWhere(['<','invoice_date_due',date('Y-m-d')])
                                                             ->orderBy('invoice_date_due')
                                                             ->all();
                     $open_invoices = Salesinvoice::find()->where(['in','product_id',$this->houses])
@@ -77,7 +76,7 @@ class GuestController extends Controller
         else    
         {
               Yii::$app->session->setFlash('danger',Yii::t('app','You do not have permission to make an online payment.')); 
-              return $this->render('guest_index',['overdue_invoices'=> $overdue_invoices,'open_invoices'=>$open_invoices]);
+              return $this->redirect(['site/index']);
         }  
     }     
 }

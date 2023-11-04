@@ -47,7 +47,7 @@
 <?php $this->beginBody()?>
 <div class="wrap">
 
-<?php if (Yii::$app->user->can('Make payment online')) { ;?> 
+<?php if ((Yii::$app->user->can('viewPermission') && (!Yii::$app->user->can('editPermission')))) { ?> 
 <?php NavBar::begin(['options' => ['class' => 'navbar navbar-inverse navbar-expand-sm', 'role'=>'navigation','id'=>'ip-navbar-collapse']]);?>
     <div>
         <div class="navbar-header">
