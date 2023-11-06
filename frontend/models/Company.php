@@ -7,14 +7,15 @@ use Yii;
 
 class Company extends \yii\db\ActiveRecord
 {
+    public $name = '';
+    
     /**
      * {@inheritdoc}
      */
     public static function getDb()
     {
        return \frontend\components\Utilities::userdb();
-    }  
-    
+    } 
        
     public static function tableName()
     {

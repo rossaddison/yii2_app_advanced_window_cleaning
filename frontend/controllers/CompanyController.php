@@ -54,6 +54,11 @@ class CompanyController extends Controller
         ];
     }
     
+    /**
+     * 
+     * @return mixed
+     * @throws NotFoundHttpException
+     */
     public function actionCreategocardlesscustomer()
     {
        $keylist = Yii::$app->request->get('keylist');
@@ -122,22 +127,25 @@ class CompanyController extends Controller
      } //ifempty end
    } //function end
    
-   public function actionPaidticked()
+   /**
+    * @return void
+    * @throws NotFoundHttpException
+    */
+    public function actionPaidticked()
     {
       $keylist = Yii::$app->request->get('keylist');
       if (!empty($keylist)){
       foreach ($keylist as $key => $value)
       {
-                    $model = Salesorderdetail::findOne($value);
-                    if ($model !== null) {
-                        $model->paid = $model->unit_price;
-                        $model->cleaned = "Cleaned";
-                        $model->save();
-                    }
+        $model = Salesorderdetail::findOne($value);
+        if ($model !== null) {
+            $model->paid = $model->unit_price;
+            $model->cleaned = "Cleaned";
+            $model->save();
+        }
       }
       }
       else {throw new NotFoundHttpException(Yii::t('app','No ticks selected.'));}
-      
     }   
 
     /**
@@ -192,7 +200,7 @@ class CompanyController extends Controller
         }
         else 
         {
-           throw new ForbiddenHttpException(Yii::t('app','You can only create one company. Modify details of the current company.'));
+           throw new ForbiddenHttpException((string)Yii::t('app','You can only create one company. Modify details of the current company.'));
         }
     }
 
