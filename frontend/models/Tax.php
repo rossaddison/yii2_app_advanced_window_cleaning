@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace frontend\models;
 
 use Yii;
@@ -19,6 +21,7 @@ class Tax extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['tax_id'], 'integer'],
             [['tax_type', 'tax_name', 'tax_percentage'], 'required'],
             [['tax_percentage'], 'number'],
             [['tax_type'], 'string', 'max' => 2],
@@ -34,5 +37,9 @@ class Tax extends \yii\db\ActiveRecord
             'tax_name' => Yii::t('app','Tax Name'),
             'tax_percentage' => Yii::t('app','Tax Percentage'),
         ];
+    }
+    
+    public function tax_id() {
+        return $this->tax_id;
     }
 }

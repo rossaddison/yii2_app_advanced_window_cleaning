@@ -7,10 +7,14 @@
     xmlns="https://getpsalm.org/schema/config"
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
 >
+<issueHandlers>
+    <UndefinedClass>
+    <errorLevel type="suppress">
+      <referencedClass name="Yii" />
+    </errorLevel>
+  </UndefinedClass>
+</issueHandlers>    
 <projectFiles>
-    <directory name="frontend" />
-    <file name="frontend/web/index.php"/>
-    <file name="yii"/>
-    <file name="vendor/autoload.php"/>
+    <directory name="frontend"/>
 </projectFiles>    
 </psalm>

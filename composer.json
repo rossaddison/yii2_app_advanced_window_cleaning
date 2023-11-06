@@ -57,7 +57,6 @@
         "symfony/process": "*",
         "google/cloud-translate": "*",
         
-        
         "2amigos/yii2-google-maps-library" : "*"
     },
     "require-dev": {
@@ -80,7 +79,9 @@
         "psr-4": {
             "common\\tests\\": ["common/tests/", "common/tests/_support"],
             "backend\\tests\\": ["backend/tests/", "backend/tests/_support"],
-            "frontend\\tests\\": ["frontend/tests/", "frontend/tests/_support"]
+            "frontend\\tests\\": ["frontend/tests/", "frontend/tests/_support"],
+            "frontend\\models\\": ["frontend/models/"],
+            "frontend\\controllers\\": ["frontend/controllers/"]
         }
     },
      "config": {

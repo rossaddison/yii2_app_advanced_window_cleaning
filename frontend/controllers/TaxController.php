@@ -1,13 +1,20 @@
 <?php
+declare(strict_types=1);
 
 namespace frontend\controllers;
 
+/**
+ * @psalm-suppress UndefinedClass Yii
+ */
 use Yii;
+
 use frontend\models\Tax;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 use yii\filters\VerbFilter;
+use yii\db\IntegrityException;
 
 class TaxController extends Controller
 {
@@ -24,15 +31,15 @@ class TaxController extends Controller
                 ],
             ],
             'access' => 
-                            [
-                            'class' => \yii\filters\AccessControl::class,
-                            'only' => ['index','create', 'update','delete','view'],
-                            'rules' => [
-                            [
-                              'allow' => true,
-                              'roles' => ['admin'],
-                            ],
-                            ],
+                [
+                'class' => \yii\filters\AccessControl::class,
+                'only' => ['index','create', 'update','delete','view'],
+                'rules' => [
+                [
+                  'allow' => true,
+                  'roles' => ['admin'],
+                ],
+                ],
             ], 
         ];
     }
@@ -72,9 +79,9 @@ class TaxController extends Controller
     public function actionCreate()
     {
         $model = new Tax();
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->tax_id]);
+            $tax_id =  (int)$model->tax_id();
+            return $this->redirect(['view', 'id' => $tax_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -82,44 +89,55 @@ class TaxController extends Controller
         }
     }
 
-    
-    public function actionUpdate($id)
+    /**
+     * 
+     * @param int $id
+     * @return Response|string
+     */
+    public function actionUpdate(int $id) 
     {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->tax_id]);
+            $tax_id =  (int)$model->tax_id();
+            return $this->redirect(['view', 'id' => $tax_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
             ]);
         }
     }
-
     
-    public function actionDelete($id)
+    /**
+     * 
+     * @param int $id
+     * @return Response|string
+     * @throws \yii\web\HttpException
+     */
+    public function actionDelete(int $id) 
     {
         try{
         $this->findModel($id)->delete();
         return $this->redirect(['index']);
         } catch(IntegrityException $e) {
-              throw new \yii\web\HttpException(404, Yii::t('app','First delete Daily cleans or costs that this tax code has been linked to then you will be able to delete this tax code.'));
+              $merge = Yii::t('app','First delete Daily cleans or costs that this tax code has been' 
+                      . 'linked to then you will be able to delete this tax code. Exception: '). (string)$e;
+              throw new \yii\web\HttpException(404, $merge);
         }
     }
 
     /**
-     * Finds the Tax model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Tax the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * 
+     * @param int $id
+     * @return Tax
+     * @throws NotFoundHttpException
      */
-    protected function findModel($id)
+    protected function findModel(int $id) : Tax
     {
         if (($model = Tax::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException(Yii::t('app','The requested page does not exist.'));
+            throw new NotFoundHttpException((string)Yii::t('app','The requested page does not exist.'));
         }
     }
 }
