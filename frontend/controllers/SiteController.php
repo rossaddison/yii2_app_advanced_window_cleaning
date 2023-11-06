@@ -28,13 +28,13 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
+                'only' => ['signup'],
                 'rules' => [
                     [
                         //only an administrator can signup future observers a.k.a clients
-                        'actions' => ['logout', 'signup'],
+                        'actions' => ['signup'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['admin'],
                     ],
                 ],
             ],

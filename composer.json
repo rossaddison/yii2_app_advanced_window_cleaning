@@ -22,6 +22,8 @@
         
         "itstructure/yii2-ckeditor": "*",
         
+         "psalm/plugin-symfony": "*",
+        
         "sjaakp/yii2-dateline": "*",
         "sjaakp/yii2-sortable-behavior": "*",
         "istvan-ujjmeszaros/bootstrap-duallistbox": "*",
@@ -69,8 +71,11 @@
         "codeception/module-asserts": "^3.0 || ^1.1",
         "codeception/module-yii2": "^1.1",
         "codeception/module-filesystem": "^3.0 || ^2.0 || ^1.1",
+        "codeception/module-webdriver": "*",
         "codeception/verify": "^3.0 || ^2.2",
-        "symfony/browser-kit": "^6.0 || >=2.7 <=4.2.4"
+        "symfony/browser-kit": "^6.0 || >=2.7 <=4.2.4",
+        "spatie/phpunit-watcher": "*",
+        "vimeo/psalm": "*"
     },
     "autoload-dev": {
         "psr-4": {

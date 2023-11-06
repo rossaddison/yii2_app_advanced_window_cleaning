@@ -1,5 +1,5 @@
 **Installation by means of WAMP :**
-Complete absolute path of the VirtualHost folder Examples: C:/wamp/www/projet/ or E:/www/site1/ Required is:
+Complete absolute path of the VirtualHost folder Examples: C:/wamp/www/project/ or E:/www/site1/ Required is:
 
 C:\wamp64\www\yii2_app_advanced_window_cleaning\frontend_web
 
@@ -158,10 +158,10 @@ After application:
 *** applied m231101_162925_init_rbac (time: 0.032s)
 ````
 
-Two files are created: 1. items.php, 2. assignments located in console/rbac and should appear as follows:
+Two files are created: 1. assignments.php, 2. items.php located in console/rbac and should appear as follows:
 
 ````
-**console/rbac/items (or user_id => 'role')**
+**console/rbac/assignments (or user_id => 'role')**
 
 return [
     6 => [
@@ -185,7 +185,7 @@ return [
 ];
 ````
 
-** console/rbac/assignments.php **
+** console/rbac/items.php **
 ````
 
 return [
@@ -256,3 +256,114 @@ Total 21 new migrations to be applied:
 
 Apply the above migrations? (yes|no) [no]:yes
 
+** Loading the user data of the two users 'admin' (password:adminadmin) and 'observer' (password:observer) via Unit Testing **
+
+See data file: C:\wamp64\www\yii2_app_advanced_window_cleaning\frontend\tests\unit\fixtures\data\user.php
+
+C:\wamp64\www\yii2_app_advanced_window_cleaning>yii fixture/load User --namespace=frontend\tests\unit\fixtures
+
+Fixtures namespace is:
+        frontend\tests\unit\fixtures
+
+Global fixtures will be used:
+
+        1. yii\test\InitDbFixture
+
+Fixtures below will be loaded:
+
+        1. User
+
+Be aware that:
+Applying leads to purging of certain data in the database!
+
+Load above fixtures? (yes|no) [no]:yes
+Fixtures were successfully loaded from namespace:
+        "frontend\tests\unit\fixtures"
+
+        1. yii\test\InitDbFixture
+        2. frontend\tests\unit\fixtures\UserFixture 
+
+If you decide to unload this data by means of:
+
+````
+C:\wamp64\www\yii2_app_advanced_window_cleaning>yii fixture/load User --namespace=frontend\tests\unit\fixtures
+````
+
+remember to change the autoincrement number in phpMyAdmin ... Operations back to 1.
+
+Note: The SiteController's behaviour function has the role set to 'admin' and not '@'. If it was '@' it
+would mean that all authenticated users, including the observer role (paying clients) would have access to the signup function 
+which we do not want.  We have preset the assignments.php file to one user with admin role and the rest with the observer role 
+in the above migration file console/migrations/m231101_162925_init_rbac.php and we do not want this predetermined number of 
+potential clients (5 arbitrary) to be 'used up' by indisciminate signing up.
+
+** Loading Product unit test data **
+
+C:\wamp64\www\yii2_app_advanced_window_cleaning>yii fixture/load Product --namespace=frontend\tests\unit\fixtures
+Fixtures namespace is:
+        frontend\tests\unit\fixtures
+
+Global fixtures will be used:
+
+        1. yii\test\InitDbFixture
+
+Fixtures below will be loaded:
+
+        1. Product
+
+Be aware that:
+Applying leads to purging of certain data in the database!
+
+Load above fixtures? (yes|no) [no]:yes
+Fixtures were successfully loaded from namespace:
+        "frontend\tests\unit\fixtures"
+
+        1. yii\test\InitDbFixture
+        2. frontend\tests\unit\fixtures\UserFixture
+        3. frontend\tests\unit\fixtures\TaxFixture
+        4. frontend\tests\unit\fixtures\ProductcategoryFixture
+        5. frontend\tests\unit\fixtures\ProductsubcategoryFixture
+        6. frontend\tests\unit\fixtures\ProductFixture
+
+C:\wamp64\www\yii2_app_advanced_window_cleaning>
+
+** Unloading Product unit test data by means of fixtures**
+
+C:\wamp64\www\yii2_app_advanced_window_cleaning>yii fixture/unload Product --namespace=frontend\tests\unit\fixtures
+
+** Building AcceptanceTester.php which is generated into \frontend\tests\_support folder. ** 
+
+Leave it in this folder. The 'codecept run' depends on it in this folder. 
+
+````
+C:\wamp64\www\yii2_app_advanced_window_cleaning>php ./vendor/bin/codecept build
+
+Included Configuration: common
+Building Actor classes for suites: unit
+ -> UnitTesterActions.php generated successfully. 3 methods added
+common\tests\UnitTester includes modules: Yii2
+
+Included Configuration: frontend
+Building Actor classes for suites: acceptance, functional, unit
+ -> AcceptanceTesterActions.php generated successfully. 99 methods added
+frontend\tests\AcceptanceTester includes modules: WebDriver, Yii2
+AcceptanceTester.php created.
+ -> FunctionalTesterActions.php generated successfully. 235 methods added
+frontend\tests\FunctionalTester includes modules: Filesystem, Yii2, Asserts
+ -> UnitTesterActions.php generated successfully. 148 methods added
+frontend\tests\UnitTester includes modules: Yii2, Asserts
+
+Included Configuration: backend
+Building Actor classes for suites: functional, unit
+ -> FunctionalTesterActions.php generated successfully. 83 methods added
+backend\tests\FunctionalTester includes modules: Yii2
+ -> UnitTesterActions.php generated successfully. 0 methods added
+backend\tests\UnitTester includes modules: 
+
+````
+
+** Running Codecept **
+
+````
+C:\wamp64\www\yii2_app_advanced_window_cleaning>php ./vendor/bin/codecept run
+````

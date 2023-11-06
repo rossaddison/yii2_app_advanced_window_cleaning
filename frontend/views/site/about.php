@@ -11,6 +11,4 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>Running on php 8.2</p>
-
-    <code><?= __FILE__ ?></code>
 </div>

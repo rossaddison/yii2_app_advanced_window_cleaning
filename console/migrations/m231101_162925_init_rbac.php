@@ -27,13 +27,17 @@ class m231101_162925_init_rbac extends Migration
 
         $admin = $auth->createRole('admin');
         $auth->add($admin);
-        $auth->addChild($admin, $editPermission);
-        $auth->addChild($admin, $viewPermission);
-        
+        if (!$auth->hasChild($admin, $editPermission)) { 
+            $auth->addChild($admin, $editPermission);
+        }
+        if (!$auth->hasChild($admin, $viewPermission)) { 
+            $auth->addChild($admin, $viewPermission);
+        }
         $observer = $auth->createRole('observer');
         $auth->add($observer);
-        $auth->addChild($observer, $viewPermission);
-        
+        if (!$auth->hasChild($admin, $viewPermission)) { 
+            $auth->addChild($observer, $viewPermission);
+        }
         // Estimated number of paying clients that you as administrator will signup
         // Only a logged in administrator will be able to signup and send an activation email to the client
         // or manually change the user status in the user table from 9 to 10 which is quite tedious
@@ -42,11 +46,15 @@ class m231101_162925_init_rbac extends Migration
          
         $number_of_paying_clients = 5;
         for ($user_id = 2;  $user_id <= ($number_of_paying_clients + 1); $user_id++) {
-           $auth->assign($observer, $user_id);
+            if (!$auth->getAssignment('observer', $user_id)) {
+                $auth->assign($observer, $user_id);
+            }
         }
 
         // User id 1:  admin role with viewPermission, and editPermission permissions 
-        $auth->assign($admin, 1);
+        if (!$auth->getAssignment('admin', 1)) {
+            $auth->assign($admin, 1);
+        }
     }
 
     /**

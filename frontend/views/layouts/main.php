@@ -6,7 +6,7 @@ use yii\bootstrap4\Breadcrumbs;
 use frontend\assets\AppAsset;
 use frontend\widgets\Alert;
 use kartik\icons\FontAwesomeAsset;
-use Yii;
+
 $container = new \yii\di\Container;
 Yii::$container->set('yii\widgets\LinkPager', 'yii\bootstrap4\LinkPager');
 $tooltipcarousal = Yii::t('app','Include snap shots, pdf, xlsx, ods file types from your phone here. These can be selected as a dropdown list under Daily Cleans or under Daily Costs.');
