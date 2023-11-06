@@ -55,7 +55,10 @@
         "phpoffice/phpspreadsheet":"*",
         "paragonie/random_compat": "*",
         "symfony/process": "*",
-        "google/cloud-translate": "*"
+        "google/cloud-translate": "*",
+        
+        
+        "2amigos/yii2-google-maps-library" : "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

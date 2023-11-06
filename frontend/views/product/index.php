@@ -232,9 +232,7 @@ echo Slider::widget([
             'header'=>'Call',
             'visible'=> Yii::$app->user->isGuest ? false : true,
             'buttons' => ['link' => function ($url, $dataProvider,$key) {
-                           if (strlen($dataProvider->contactmobile)===11){
-                           return Html::a($dataProvider->contactmobile,$url);}
-                           else return '';
+                    return Html::a($dataProvider->contactmobile,$url);
                 }
              ],
             'urlCreator' => function ($action, $dataProvider, $key, $index) {
@@ -283,7 +281,7 @@ echo Slider::widget([
             'header'=>Yii::t('app','Post Code'),
             'attribute'=>'productcategory_id',
             'value' => function ($dataProvider) {
-                    return $dataProvider->productcategory->name; 
+                    return $dataProvider->productcategory->name ?? ''; 
             },
             'filter'=> Html::activeDropDownList($searchModel,'productcategory_id',ArrayHelper::map(Productcategory::find()->orderBy('name')->asArray()->all(),'id','name'),[ 'options' => ['style'=> 'font-size:'.Yii::$app->session['sliderfontproduct'].'px'],'class'=>'form-control','prompt'=>'Postcode...']), 
     ],
@@ -293,8 +291,8 @@ echo Slider::widget([
             'format'=>'html',
             'attribute'=>'productsubcategory_id', 
             'value' => function ($dataProvider) {
-                        $url2 = "https://maps.google.com/maps?q=".ltrim($dataProvider->productnumber, '0')." ".$dataProvider->productsubcategory->name." ".$dataProvider->productcategory->name;
-                       return Html::a($dataProvider->productsubcategory->name,$url2);
+                        $url2 = "https://maps.google.com/maps?q=".ltrim(($dataProvider->productnumber ?? ''), '0')." ".($dataProvider->productsubcategory->name ?? '')." ".($dataProvider->productcategory->name ?? '');
+                       return Html::a(($dataProvider->productsubcategory->name ?? ''),$url2);
              },
             'filter'=> Html::activeDropDownList($searchModel,'productsubcategory_id',ArrayHelper::map(Productsubcategory::find()->where(['productcategory_id'=>$searchModel->productcategory_id])->orderBy('name')->asArray()->all(),'id','name'),[ 'options' => ['style'=> 'font-size:'.Yii::$app->session['sliderfontproduct'].'px'],'class'=>'form-control','prompt'=>'Street...']),
     ],
