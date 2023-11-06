@@ -11,6 +11,26 @@ class Product extends \yii\db\ActiveRecord
 {
    public $importfile;
    
+   // fields used in testing ProductTest
+   public $name;
+   public $surname;
+   public $contactmobile;
+   public $specialrequest;
+   public $listprice;
+   public $frequency;
+   public $productnumber;
+   public $postcodefirsthalf;
+   public $postcodesecondhalf;
+   public $email;
+   public $productsubcategory_id;
+   public $productcategory_id;
+   public $sellstartdate;
+   public $sellenddate;
+   public $discontinueddate;
+   public $is_active;
+   public $mandate;
+   public $gc_number;
+   
    public static function getDb()
    {
        return \frontend\components\Utilities::userdb();
@@ -91,5 +111,45 @@ class Product extends \yii\db\ActiveRecord
     public function getSalesorderdetails()
     {
         return $this->hasMany(Salesorderdetail::className(), ['product_id' => 'id']);
+    }
+    
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+    
+    /**
+     * @see \frontend\tests\unit\models\ProductTest
+     * @return null|bool
+     */
+    public function capture()
+    {
+        if (!$this->validate()) {
+            return null;
+        }
+        
+        $product = new Product();
+        $product->name = $this->name;
+        $product->surname = $this->surname;
+        $product->contactmobile = $this->contactmobile;
+        $product->specialrequest = $this->specialrequest;
+        $product->listprice = $this->listprice;
+        $product->frequency = $this->frequency;
+        $product->productnumber = $this->productnumber;
+        $product->postcodefirsthalf = $this->postcodefirsthalf;
+        $product->postcodesecondhalf = $this->postcodesecondhalf;
+        $product->email = $this->email;
+        $product->productsubcategory_id = $this->productsubcategory_id;
+        $product->productcategory_id = $this->productcategory_id;
+        $product->sellstartdate = $this->sellstartdate;
+        $product->sellenddate = $this->sellenddate;
+        $product->discontinueddate = $this->discontinueddate;
+        $product->is_active = $this->is_active;
+        $product->mandate = $this->mandate;
+        $product->gc_number = $this->gc_number;
+        if ($product->save()) {
+            return true;
+        }
+        return false;
     }
 }
