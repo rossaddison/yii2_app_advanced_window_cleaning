@@ -80,7 +80,7 @@ class TaxController extends Controller
     {
         $model = new Tax();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $tax_id =  (int)$model->tax_id();
+            $tax_id =  $model->tax_id;
             return $this->redirect(['view', 'id' => $tax_id]);
         } else {
             return $this->render('create', [
@@ -99,7 +99,7 @@ class TaxController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $tax_id =  (int)$model->tax_id();
+            $tax_id =  $model->tax_id;
             return $this->redirect(['view', 'id' => $tax_id]);
         } else {
             return $this->render('update', [

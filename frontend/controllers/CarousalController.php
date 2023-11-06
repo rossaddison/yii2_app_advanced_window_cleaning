@@ -7,6 +7,7 @@ use frontend\models\Carousal;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 
@@ -28,23 +29,23 @@ class CarousalController extends Controller
                 ],
             ],
            'access' => 
-                            [
-                            'class' => \yii\filters\AccessControl::class,
-                            'only' => ['index','create', 'update','delete','view'],
-                            'rules' => [
-                            [
-                              'allow' => true,
-                              'roles' => ['admin'],
-                            ],
-                            [
-                              'allow' => false,
-                              'roles' => ['?'],
-                            ],  
-                            [
-                              'allow' => true,
-                              'verbs' => ['POST']
-                            ],  
-                            ],
+                [
+                'class' => \yii\filters\AccessControl::class,
+                'only' => ['index','create', 'update','delete','view'],
+                'rules' => [
+                [
+                  'allow' => true,
+                  'roles' => ['admin'],
+                ],
+                [
+                  'allow' => false,
+                  'roles' => ['?'],
+                ],  
+                [
+                  'allow' => true,
+                  'verbs' => ['POST']
+                ],  
+                ],
             ], 
         ];
     }
@@ -68,9 +69,9 @@ class CarousalController extends Controller
     /**
      * Displays a single Carousal model.
      * @param integer $id
-     * @return mixed
+     * @return string
      */
-    public function actionView($id)
+    public function actionView(int $id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -78,86 +79,100 @@ class CarousalController extends Controller
     }
 
     /**
-     * Creates a new Carousal model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * 
      * @return mixed
      */
     public function actionCreate()
-        {
-          $model = new Carousal();
-          if ($model->load(Yii::$app->request->post())) {
-              $uploadedFile = UploadedFile::getInstance($model, 'image');
-              if (!is_null($uploadedFile)) {
-                    $model->image_source_filename = $uploadedFile->name;
-                    $model->image_web_filename = Yii::$app->security->generateRandomString().".".$uploadedFile->extension;
-                    if ($model->validate()) { 
-                        $basepath = \Yii::getAlias('@webroot');
-                        if (Yii::$app->user->identity->attributes['name']  === 'demo') {
-                           $path = $basepath . "/images/demo/".Yii::$app->session['demo_image_timestamp_directory']."/". $model->image_web_filename;
-                        }
-                        else
-                        {
-                           $path = $basepath . "/images/" . $model->image_web_filename;
-                        }
-                        $uploadedFile->saveAs($path); 
-                    }                   
-                  }
-                if ($model->save())
-                    {
-                      return $this->redirect(['view', 'id' => $model->id]);
+    {
+        $model = new Carousal();
+        if ($model->load(Yii::$app->request->post())) {
+            $uploadedFile = UploadedFile::getInstance($model, 'image');
+            if (!is_null($uploadedFile)) {
+                $model->image_source_filename = $uploadedFile->name;
+                $model->image_web_filename = Yii::$app->security->generateRandomString().".".$uploadedFile->extension;
+                if ($model->validate()) { 
+                    $basepath = \Yii::getAlias('@webroot');
+                    if (Yii::$app->user->identity->attributes['name']  === 'demo') {
+                       $path = $basepath . "/images/demo/".Yii::$app->session['demo_image_timestamp_directory']."/". $model->image_web_filename;
                     }
-                    
-      }
-      return $this->render('create', ['model' => $model,
-        ]);
-      }
-    
-   public function actionUpdate($id)
-        {
-          $model = $this->findModel($id);
-          if ($model->load(Yii::$app->request->post())) {
-              $uploadedFile = UploadedFile::getInstance($model, 'image');
-              if (!is_null($uploadedFile)) {
-                    $model->image_source_filename = $uploadedFile->name;
-                    $model->image_web_filename = Yii::$app->security->generateRandomString().".".$uploadedFile->extension;
-                    if ($model->validate()) {                
-                    Yii::$app->params['uploadPath'] = Yii::$app->basePath;
-                        $basepath = \Yii::getAlias('@webroot');
-                        if (Yii::$app->user->identity->attributes['name']  === 'demo') {
-                           $path = $basepath . "/images/demo/".Yii::$app->session['demo_image_timestamp_directory']."/". $model->image_web_filename;
-                        }
-                        else {
-                           $path = $basepath . "/images/" . $model->image_web_filename;   
-                        }
-                        $uploadedFile->saveAs($path); 
-                    }                   
-                  }
-                if ($model->save())
+                    else
                     {
-                      return $this->redirect(['view', 'id' => $model->id]);
+                       $path = $basepath . "/images/" . $model->image_web_filename;
                     }
-                    
-      }
-      return $this->render('update', ['model' => $model,
+                    $uploadedFile->saveAs($path); 
+                }                   
+            }
+            if ($model->save())
+            {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        }
+        return $this->render('create', ['model' => $model,
         ]);
     }
+   
+   /**
+    * @param int $id
+    * @return mixed
+    */   
+   public function actionUpdate(int $id)
+   {
+        $model = $this->findModel($id);
+        if ($model->load(Yii::$app->request->post())) {
+            $uploadedFile = UploadedFile::getInstance($model, 'image');
+            if (!is_null($uploadedFile)) {
+                $model->image_source_filename = $uploadedFile->name;
+                $model->image_web_filename = Yii::$app->security->generateRandomString().".".$uploadedFile->extension;
+                if ($model->validate()) {                
+                    Yii::$app->params['uploadPath'] = Yii::$app->basePath;
+                    $basepath = \Yii::getAlias('@webroot');
+                    if (Yii::$app->user->identity->attributes['name']  === 'demo') {
+                       $path = $basepath . "/images/demo/".Yii::$app->session['demo_image_timestamp_directory']."/". $model->image_web_filename;
+                    }
+                    else {
+                       $path = $basepath . "/images/" . $model->image_web_filename;   
+                    }
+                    $uploadedFile->saveAs($path); 
+                }                   
+            }
+            if ($model->save())
+            {
+                $id = (int)$model->id();
+                return $this->redirect(['view', 'id' => $id]);
+            } else {
+                return $this->render('update', ['model' => $model]);
+            }
+        }
+    }    
     
-    protected function findModel($id)
+    /**
+     * @param int $id
+     * @return Carousal
+     * @throws NotFoundHttpException
+     */
+    protected function findModel(int $id) : Carousal
     {
         if (($model = Carousal::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException(Yii::t('app','The requested page does not exist.'));
+            throw new NotFoundHttpException((string)Yii::t('app','The requested page does not exist.'));
         }
     }
     
-    public function actionDelete($id)
+    /**
+     * 
+     * @param int $id
+     * @return Response|string
+     * @throws \yii\web\HttpException
+     */
+    public function actionDelete(int $id)
     {
         try{
         $this->findModel($id)->delete();
         return $this->redirect(['index']);
         } catch(\yii\db\IntegrityException $e) {
-              throw new \yii\web\HttpException(404, Yii::t('app','This image or file is linked. You will have to remove this link first.'));
+            $merge = Yii::t('app','This image or file is linked. You will have to remove this link first. Exception: '). (string)$e;
+            throw new \yii\web\HttpException(404, $merge);
         }
     }
 }

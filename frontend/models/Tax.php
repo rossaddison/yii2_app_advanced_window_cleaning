@@ -7,6 +7,7 @@ use Yii;
 
 class Tax extends \yii\db\ActiveRecord
 {
+    public int $tax_id;
     
     public static function getDb()
     {
@@ -37,9 +38,5 @@ class Tax extends \yii\db\ActiveRecord
             'tax_name' => Yii::t('app','Tax Name'),
             'tax_percentage' => Yii::t('app','Tax Percentage'),
         ];
-    }
-    
-    public function tax_id() {
-        return $this->tax_id;
     }
 }

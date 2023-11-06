@@ -16,5 +16,8 @@
 </issueHandlers>    
 <projectFiles>
     <directory name="frontend"/>
+    <ignoreFiles>
+        <directory name="vendor"/>
+    </ignoreFiles>
 </projectFiles>    
 </psalm>

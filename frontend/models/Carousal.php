@@ -10,7 +10,9 @@ class Carousal extends \yii\db\ActiveRecord
      * @inheritdoc
      */
     
+   public $id; 
    public $image;
+   public $image_source_filename;
 
     
    public static function getDb()
@@ -51,9 +53,4 @@ class Carousal extends \yii\db\ActiveRecord
             'content_caption' => Yii::t('app','Content Caption'),
         ];
     }
-    
-    
-    
-    
-    
-}
+ }
