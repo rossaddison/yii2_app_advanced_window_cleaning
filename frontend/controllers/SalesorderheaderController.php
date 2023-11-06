@@ -20,7 +20,7 @@ class SalesorderheaderController extends Controller
     {
         return [
             'verbs' => [
-                'class' =>Verbfilter::class,
+                'class' =>VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],

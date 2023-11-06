@@ -41,7 +41,7 @@ class InvoicesController extends GuestController
         return [
                 'verbs' => 
                             [
-                            'class' =>Verbfilter::class,
+                            'class' =>VerbFilter::class,
                             'actions' =>    [
                                                 'delete' => ['POST'],
                                             ],

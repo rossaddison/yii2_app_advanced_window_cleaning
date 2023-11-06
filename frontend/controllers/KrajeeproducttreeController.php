@@ -15,7 +15,7 @@ class KrajeeproducttreeController extends NodeController
     {
         return [
             'verbs' => [
-                'class' =>Verbfilter::class,
+                'class' =>VerbFilter::class,
                 'actions' => [
                    // 'delete' => ['POST'],
                 ],
