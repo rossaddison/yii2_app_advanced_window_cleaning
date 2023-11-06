@@ -6,10 +6,10 @@ use Yii;
 class Tax extends \yii\db\ActiveRecord
 {
     
-     public static function getDb()
-   {
+    public static function getDb()
+    {
        return \frontend\components\Utilities::userdb();
-   } 
+    } 
         
     public static function tableName()
     {

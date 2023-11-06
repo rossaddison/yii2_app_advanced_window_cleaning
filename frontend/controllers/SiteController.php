@@ -39,7 +39,7 @@ class SiteController extends Controller
                 ],
             ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' =>Verbfilter::class,
                 'actions' => [
                     'logout' => ['post'],
                 ],

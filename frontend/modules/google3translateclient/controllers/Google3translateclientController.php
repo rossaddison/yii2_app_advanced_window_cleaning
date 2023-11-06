@@ -23,7 +23,7 @@ class Google3translateclientController extends \yii\web\Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' =>Verbfilter::class,
                 'actions' => [
                    // 'delete' => ['POST'],
                 ],

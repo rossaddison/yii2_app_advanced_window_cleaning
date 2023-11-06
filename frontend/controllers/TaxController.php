@@ -9,9 +9,6 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-/**
- * TaxController implements the CRUD actions for Tax model.
- */
 class TaxController extends Controller
 {
     /**
@@ -21,7 +18,7 @@ class TaxController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' =>Verbfilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -85,12 +82,7 @@ class TaxController extends Controller
         }
     }
 
-    /**
-     * Updates an existing Tax model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
+    
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -104,12 +96,7 @@ class TaxController extends Controller
         }
     }
 
-    /**
-     * 
-     * @param type $id
-     * @return type
-     * @throws \yii\web\HttpException
-     */
+    
     public function actionDelete($id)
     {
         try{

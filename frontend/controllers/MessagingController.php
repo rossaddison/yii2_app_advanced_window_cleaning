@@ -16,7 +16,7 @@ class MessagingController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' =>Verbfilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
