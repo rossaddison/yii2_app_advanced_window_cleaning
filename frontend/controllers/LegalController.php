@@ -24,7 +24,7 @@ class LegalController extends Controller
                 ],
             ],
              'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessControl::class,
                 'only' => ['index', 'view', 'create','update','delete'],
                 'rules' => [
                     [
