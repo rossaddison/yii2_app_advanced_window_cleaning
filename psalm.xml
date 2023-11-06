@@ -7,11 +7,10 @@
     xmlns="https://getpsalm.org/schema/config"
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
 >
-<plugins><pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin"/></plugins>    
-    <projectFiles>
-        <directory name="frontend" />
-        <file name="frontend/web/index.php"/>
-        <file name="yii"/>
-        <file name="vendor/autoload.php"/>
-    </projectFiles>    
+<projectFiles>
+    <directory name="frontend" />
+    <file name="frontend/web/index.php"/>
+    <file name="yii"/>
+    <file name="vendor/autoload.php"/>
+</projectFiles>    
 </psalm>
