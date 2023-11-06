@@ -48,7 +48,7 @@ class InvoicesController extends GuestController
                             ],
                 'access' => 
                             [
-                              'class' => \yii\filters\AccessControl::className(),
+                              'class' => \yii\filters\AccessControl::class,
                               'only' => [
                                          'open','paid','view','pdf'
                                         ],

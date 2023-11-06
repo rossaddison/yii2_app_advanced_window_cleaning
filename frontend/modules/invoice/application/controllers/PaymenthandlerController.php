@@ -42,7 +42,7 @@ class PaymenthandlerController extends GuestController
     public function behaviors()
     {
         return ['verbs' => ['class' =>Verbfilter::class,'actions' => ['delete' => ['POST'], ],],
-                'access' =>['class' => \yii\filters\AccessControl::className(),'only' => [
+                'access' =>['class' => \yii\filters\AccessControl::class,'only' => [
                                          'makepayment','paymentreturn','paymentcancel',
                                         ],
                             'rules' => [

@@ -36,7 +36,7 @@ class SalesinvoiceController extends Controller
                             ],
                 'access' => 
                             [
-                                'class' => \yii\filters\AccessControl::className(),
+                                'class' => \yii\filters\AccessControl::class,
                                 'only' => ['init','index','create','view','update','pdf'],
                                 'rules' => [
                                     [

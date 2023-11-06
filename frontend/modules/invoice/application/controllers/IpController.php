@@ -75,7 +75,7 @@ class IpController extends Controller
                             ],
                 'access' => 
                             [
-                              'class' => \yii\filters\AccessControl::className(),
+                              'class' => \yii\filters\AccessControl::class,
                               'only' => ['settings','cronkey',
                                          'etc','etu','etd','etv',
                                          'pmc','pmu','pmd','pmv',

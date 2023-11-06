@@ -22,7 +22,7 @@ class EasyController extends Controller
                             ],
                 'access' => 
                             [
-                            'class' => \yii\filters\AccessControl::className(),
+                            'class' => \yii\filters\AccessControl::class,
                             'only' => ['selectedhousenumbers','index'],
                             'rules' => [
                             [

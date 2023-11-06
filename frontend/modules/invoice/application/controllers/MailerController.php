@@ -84,7 +84,7 @@ class MailerController extends Controller
                         ],
             'access' => 
                         [
-                          'class' => \yii\filters\AccessControl::className(),
+                          'class' => \yii\filters\AccessControl::class,
                           'only' => ['sendinvoice','invoice'
                                     ],
                           'rules' => [

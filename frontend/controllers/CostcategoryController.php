@@ -23,7 +23,7 @@ class CostcategoryController extends Controller
             ],
             'access' => 
                             [
-                            'class' => \yii\filters\AccessControl::className(),
+                            'class' => \yii\filters\AccessControl::class,
                             'only' => ['view','create', 'update','delete'],
                             'rules' => [
                             [

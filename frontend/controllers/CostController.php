@@ -38,7 +38,7 @@ class CostController extends Controller
                             ],
                 'access' => 
                             [
-                            'class' => \yii\filters\AccessControl::className(),
+                            'class' => \yii\filters\AccessControl::class,
                             'only' => ['create', 'update','view','delete','doit','subcatcost'],
                             'rules' => [
                             [

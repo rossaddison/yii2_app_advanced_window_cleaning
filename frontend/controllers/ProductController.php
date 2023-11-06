@@ -51,7 +51,7 @@ class ProductController extends Controller
                             ],
                 'access' => 
                             [
-                              'class' => \yii\filters\AccessControl::className(),
+                              'class' => \yii\filters\AccessControl::class,
                               //'only' => ['index','create','view','update','delete','creategocardlesscustomer','transfer','spreadsheet','subcat','getSubcatlist'],
                               'rules' => [
                                             [

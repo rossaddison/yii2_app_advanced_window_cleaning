@@ -24,7 +24,7 @@ class QuicknoteController extends Controller
                 ],
             ],
             'access' => [
-                'class' => \yii\filters\AccessControl::className(),
+                'class' => \yii\filters\AccessControl::class,
                 'only' => ['index', 'create', 'update', 'delete', 'view'],
                 'rules' => [
                 [

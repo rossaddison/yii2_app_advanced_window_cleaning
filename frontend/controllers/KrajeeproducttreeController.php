@@ -22,7 +22,7 @@ class KrajeeproducttreeController extends NodeController
             ],
            'access' => 
                             [
-                            'class' => \yii\filters\AccessControl::className(),
+                            'class' => \yii\filters\AccessControl::class,
                             'only' => ['index','populate'],
                             'rules' => [
                             [

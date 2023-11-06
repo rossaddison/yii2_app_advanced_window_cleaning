@@ -30,7 +30,7 @@ class Google3translateclientController extends \yii\web\Controller
             ],
            'access' => 
                             [
-                            'class' => \yii\filters\AccessControl::className(),
+                            'class' => \yii\filters\AccessControl::class,
                             'only' => ['index','google3translateclient','update','view'],
                             'rules' => [
                             [
