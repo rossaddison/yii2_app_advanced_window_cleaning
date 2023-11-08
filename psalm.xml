@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <psalm
+    autoloader="vendor/yiisoft/yii2/Yii.php"
     errorLevel="1"
     findUnusedBaselineEntry="true"
     findUnusedCode="false"
@@ -7,13 +8,7 @@
     xmlns="https://getpsalm.org/schema/config"
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
 >
-<issueHandlers>
-    <UndefinedClass>
-    <errorLevel type="suppress">
-      <referencedClass name="Yii" />
-    </errorLevel>
-  </UndefinedClass>
-</issueHandlers>    
+
 <projectFiles>
     <directory name="frontend"/>
     <ignoreFiles>
