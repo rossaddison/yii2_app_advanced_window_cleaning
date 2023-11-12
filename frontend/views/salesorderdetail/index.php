@@ -94,7 +94,7 @@ $tooltiphousenumbermobile = Html::tag('span', Yii::t('app','House Mobile'), ['ti
     <button id="w13" class = "btn btn-info btn-lg" onclick="js:getCleanedticks()" datatoggle="tooltip" title="<?php echo Yii::t('app','Use the checkbox column to select all the houses that have been cleaned. All houses are assumed cleaned by default.') ?>"><?php echo Yii::t('app','Cleaned (ticked)') ?></button>
     <button id="w14" class = "btn btn-danger btn-lg" onclick="js:getMissedticks()"><?php echo Yii::t('app','Missed (ticked)') ?></button>
     <button id="w15" class = "btn btn-danger btn-lg" onclick="js:getNotcleanedticks()" datatoggle="tooltip" title="<?php echo Yii::t('app','Use the checkbox column to select all the houses that have not been cleaned. All houses are assumed cleaned by default.') ?>"><?php echo Yii::t('app','Not Cleaned (ticked)') ?></button>
-    <?php if (Yii::$app->user->can('Update Daily Job Sheet')) { ?>
+    <?php if (Yii::$app->user->can('editPermission')) { ?>
     <button id="w10" class = "btn btn-success btn-lg" onclick="js:getPaidticks()"><?php echo Yii::t('app','Paid (ticked)') ?></button>
     <button id="w11" class = "btn btn-danger btn-lg" onclick="js:getUnpaidticks()"><?php echo Yii::t('app','Unpaid (ticked)') ?></button>
     <Hr style = "border-top: 3px double #8c8b8b">   
@@ -110,13 +110,13 @@ $tooltiphousenumbermobile = Html::tag('span', Yii::t('app','House Mobile'), ['ti
                 </ul>
     <br>
     <div>
-    <?php if (Yii::$app->user->can('Use Gocardless')) {?>
+    <?php if (Yii::$app->user->can('editPermission')) {?>
     <Hr style = "border-top: 3px double #8c8b8b">   
     <button id="w21" class = "btn btn-danger btn-lg" onclick="js:getGocardlesspayticks()" datatoggle="tooltip" title="<?php echo Yii::t('app','Customers can be sent a direct debit variable mandate to consent to each time you need payment from them.') ?>">Gocardless<?php echo Yii::t('app',' One-off (ticked)') ?></button>
          <?= Html::a(Yii::t('app','Add House'), ['product/index'], ['class' => 'btn btn-warning btn-lg','datatoggle'=>'tooltip', 'title'=> '"This button will take you to Houses to create one. You will then be able to transfer the house through to the list of houses that are part of the daily clean.']) ?>
          <?= Html::a(Yii::t('app','Back'), ['salesorderheader/index'], ['class' => 'btn btn-success btn-lg']) ?>
     <?php } ?>
-    <?php if (Yii::$app->user->can('Use Twilio')) {?>
+    <?php if (Yii::$app->user->can('editPermission')) {?>
     <Hr style = "border-top: 3px double #8c8b8b">
     <button id="w16" class = "btn btn-success btn-lg" onclick="js:getOwingticks()" datatoggle ="tooltip" title="<?php echo Yii::t('app','Different message types can be sent to your customer using Twilio, a service that requires a subscription') ?>">SMS-(ticked)</button>
         <div>
@@ -270,7 +270,7 @@ echo Slider::widget([
             'class' => 'kartik\grid\ActionColumn',
             'template' => '{link}',
             'header'=>$tooltiphousenumbermobile,
-            'visible'=> !Yii::$app->user->can('Update Daily Job Sheet') ? false : true,
+            'visible'=> !Yii::$app->user->can('editPermission') ? false : true,
             'buttons' => ['link' => function ($url, $dataProvider,$key) {
                            if (strlen($dataProvider->product->contactmobile)===11){
                            return $dataProvider->product->productnumber." ".Html::a($dataProvider->product->contactmobile,$url);}
@@ -288,7 +288,7 @@ echo Slider::widget([
             'class' => 'kartik\grid\ActionColumn',
             'template' => '{link}',// can be omitted, as it is the default
             'header'=>'<',
-            'visible'=> !Yii::$app->user->can('Update Daily Job Sheet') ? false : true,
+            'visible'=> !Yii::$app->user->can('editPermission') ? false : true,
             'buttons' => ['link' => function ($url, $dataProvider,$key) {
                            return Html::a("<",$url,['class' => 'btn btn-success']);
                 }
@@ -304,7 +304,7 @@ echo Slider::widget([
             'class' => 'kartik\grid\ActionColumn',
             'template' => '{link}',// can be omitted, as it is the default
             'header'=> $tooltiptextpaid,
-            'visible'=> !Yii::$app->user->can('Update Daily Job Sheet') ? false : true,
+            'visible'=> !Yii::$app->user->can('editPermission') ? false : true,
             'buttons' => ['link' => function ($url, $dataProvider,$key) {
                            return Html::tag('span',Html::a("SMS",$url),['class' => 'btn btn-warning'],['title'=>$dataProvider->productsubcategory->name." paid ".$dataProvider->paid,'data-toggle'=>'tooltip',
                                                                  'style'=>'text-decoration: underline; cursor:pointer;'

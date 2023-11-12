@@ -10,6 +10,16 @@ use Yii;
 
 class Costdetail extends \yii\db\ActiveRecord
 {
+    public $line_total;
+    public $order_qty;
+    public $carousal_id;
+    public $cost_id;
+    public $costcategory_id;
+    public $costsubcategory_id;
+    public $nextcost_date;
+    public $cost_header_id;
+    public $paymenttype;
+    
     /**
      * @inheritdoc
      */
@@ -39,7 +49,7 @@ class Costdetail extends \yii\db\ActiveRecord
             [['paymentreference'],'string'],            
             [['line_total'],'default','value'=>1],
             [['order_qty'], 'number'],
-            [['unit_price','paid'], 'number','min'=>0.00,'max'=>10000.00],
+            [['unit_price','paid'], 'float','min'=>0.00,'max'=>10000.00],
             [['unit_price','paid','order_qty'], 'default','value' => 0.00],
             [['carousal_id'], 'default','value' => null],
             [['carousal_id'], 'exist', 'skipOnError' => true, 'targetClass' => Carousal::className(), 'targetAttribute' => ['carousal_id' => 'id']],
@@ -70,7 +80,6 @@ class Costdetail extends \yii\db\ActiveRecord
         ];
     }
     
-    
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -99,8 +108,73 @@ class Costdetail extends \yii\db\ActiveRecord
         return $this->hasOne(Carousal::className(), ['id' => 'carousal_id']);
     }
     
-   
+    /**
+     * 
+     * @param float $price
+     */
+    public function setUnitPrice(float $price)
+    {
+        $this->unit_price = $price;
+    }
     
+    /**
+     * 
+     * @return float
+     */
+    public function getUnitPrice()
+    {
+        return $this->unit_price;
+    } 
     
+    /**
+     * @param float $line_total
+     */
+    public function setLineTotal(float $line_total)
+    {
+        $this->line_total = $line_total;
+    }
     
+    /**
+     * 
+     * @return float
+     */
+    public function getLineTotal()
+    {
+        return $this->line_total;
+    }      
+    
+    /**
+     * @return float
+     */
+    public function getPaid()
+    {
+        return $this->paid;
+    }
+    
+    /**
+     * 
+     * @param float $paid
+     */
+    public function setPaid(float $paid)
+    {
+        $this->paid = $paid;
+    }
+    
+    /**
+     * 
+     * @return int 
+     */
+    public function getCost_detail_id()
+    {
+        return $this->cost_detail_id;
+    } 
+    
+    /**
+     * 
+     * @return int
+     */
+    public function getCost_header_id()
+    {
+        return $this->cost_header_id;
+    }        
 }

@@ -160,7 +160,7 @@ $this->title = 'RA Window Cleaning';
                 <?php
                     $string = '<div class="row"><div class="col-sm-3">{wrapper}</div>';
                     $footer = '{toolbar}';
-                   if (!\Yii::$app->user->can('Create Daily Clean')){
+                   if (!\Yii::$app->user->can('editPermission')){
                        //can('Create Daily Clean')) {
                       $string = '<div class="row"><div class="col-sm-3">{wrapper}</div>';
                       $footer = '';

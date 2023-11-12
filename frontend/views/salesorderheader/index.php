@@ -17,7 +17,7 @@ $yearOnly = date('Y', strtotime(Date('Y-m-d')));
 <div class="salesorderheader-index">
     <h1><?= Html::encode($this->title) ?></h1>
     <p> 
-    <?php if (Yii::$app->user->can('Manage Admin')){ ?> 
+    <?php if (Yii::$app->user->can('editPermission')){ ?> 
         <?php 
             //Modal link frontend/layouts/main.php and frontend/assets/AppAsset.php
             //Html::button(Yii::t('app','Create Daily Clean'), ['value' => Url::to(['salesorderheader/create']), 'title' => Yii::t('app','Creating Daily Clean'), 'class' => 'showModalButton btn btn-success btn-lg']); 
@@ -107,7 +107,7 @@ echo Slider::widget([
                     'class' => 'kartik\grid\ActionColumn',
                     'template' => '{link}',
                     'header'=>Yii::t('app','Cleans'),
-                    'visible'=> Yii::$app->user->can('Manage Admin'),
+                    'visible'=> Yii::$app->user->can('editPermission'),
                     'buttons' => [
                             'link' => function ($url, $model,$key) {
                                             return Html::a(Yii::t('app','Cleans'), $url);
@@ -133,7 +133,7 @@ echo Slider::widget([
             'class' => 'kartik\grid\ActionColumn',
             'template' => '{link}',// can be omitted, as it is the default
             'header'=>Yii::t('app','Employee'),
-            'visible'=> !Yii::$app->user->can('Manage Admin') ? false : true,
+            'visible'=> !Yii::$app->user->can('editPermission') ? false : true,
             'buttons' => ['link' => function ($url, $data,$key) {
                            if (strlen($data->employee->contact_telno)===11){
                            return $data->employee->title." ".Html::a($data->employee->contact_telno,$url);}
@@ -151,7 +151,7 @@ echo Slider::widget([
             'class' => 'kartik\grid\ActionColumn',
             'template' => '{link}',// can be omitted, as it is the default
             'header'=>Yii::t('app','File/image'),
-            'visible'=> !Yii::$app->user->can('Manage Admin') ? false : true,
+            'visible'=> !Yii::$app->user->can('editPermission') ? false : true,
             'buttons' => ['link' => function ($url, $data,$key) {
                            if (!empty($data->carousal_id)){
                            return Html::a('File/Image',$url);}
@@ -202,7 +202,7 @@ echo Slider::widget([
     ['class'=>'kartik\grid\DataColumn',
              'header'=>Yii::t('app','Total Due'),
              'hAlign'=>'right',
-             'visible' => Yii::$app->user->can('See Prices'),
+             'visible' => Yii::$app->user->can('editPermission'),
              'format'=>['decimal', 2],  
              'value'=> function($data){
                 $subtotal = 0.00;
@@ -220,7 +220,7 @@ echo Slider::widget([
    ['class'=>'kartik\grid\DataColumn',
              'header'=>Yii::t('app','Paid to date'),
              'hAlign'=>'right',
-             'visible' => Yii::$app->user->can('See Prices'),
+             'visible' => Yii::$app->user->can('editPermission'),
              'format'=>['decimal', 2], 
              'value'=> function($data){
                 $subtotal = 0.00;
@@ -238,7 +238,7 @@ echo Slider::widget([
    [
     'class' => 'kartik\grid\ActionColumn',
     'dropdown' => true,
-    'visible' => Yii::$app->user->can('Create Daily Clean'),
+    'visible' => Yii::$app->user->can('editPermission'),
     'dropdownOptions' => ['class' => 'pull-right'],
     'template'=> '{view} {update}',
     'viewOptions' => ['title' => $viewMsg, 'data-toggle' => 'tooltip'],

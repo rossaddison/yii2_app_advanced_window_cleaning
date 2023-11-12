@@ -15,6 +15,7 @@ use frontend\modules\invoice\application\libraries\Lang;
 use frontend\modules\invoice\application\models\SalesinvoiceEmailTemplate;
 use frontend\modules\invoice\application\models\Salesinvoice;
 use frontend\modules\invoice\application\components\Utilities;
+use yii\filters\VerbFilter;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\validators\EmailValidator;
@@ -75,31 +76,27 @@ class MailerController extends Controller
     public function behaviors()
     {
         return [
-            'verbs' => 
-                        [
-                        'class' =>VerbFilter::class,
-                        'actions' =>    [
-                                            'delete' => ['POST'],
-                                        ],
-                        ],
-            'access' => 
-                        [
-                          'class' => \yii\filters\AccessControl::class,
-                          'only' => ['sendinvoice','invoice'
-                                    ],
-                          'rules' => [
-                                [
-                                    'allow' => true,
-                                    'verbs' => ['POST']
-                                ],
-                                [
-                                      'allow' => true,
-                                      'roles' => ['admin'],
-                                ],
-                           ],
-                        ],            
+            'verbs' =>  [
+                'class' =>VerbFilter::class,
+                'actions' =>    [
+                    'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => \yii\filters\AccessControl::class,
+                'only' => ['sendinvoice','invoice'],
+                'rules' => [
+                   [
+                        'allow' => true,
+                        'verbs' => ['POST']
+                   ],
+                   [
+                        'allow' => true,
+                        'roles' => ['admin'],
+                    ],
+                ],
+            ],          
         ];
-         
     }
     
     public function actionInvoice($invoice_id)
@@ -139,14 +136,14 @@ class MailerController extends Controller
     //send the invoice
     public function actionSendinvoice($invoice_id)
     {
-        $target_dir = Yii::getAlias('@webroot').Utilities::getCustomerfolderRelativeUrl();
+        $target_dir = Yii::getAlias('@base_root').Utilities::getCustomerfolderRelativeUrl();
         Yii::$app->session->removeAllFlashes();
         //use the customerdetails relation to retrieve the householder details in $data array
         $salesinvoice = Salesinvoice::find()->with('customerdetails')->where(['=','invoice_id',$invoice_id])->one();
         $original_file_name = '';
         $new_file_name = '';
         if ((isset($_FILES)) && (!empty($_FILES))) {
-          $original_file_name = basename($_FILES["filetoupload"]["name"]);
+          $original_file_name = basename($_FILES["filetoupload"]["tmp_name"]);
         }
         $new_file_name = $salesinvoice->invoice_url_key."_".$original_file_name;
         $target_file = $target_dir.$new_file_name;
@@ -208,7 +205,6 @@ class MailerController extends Controller
                   $echo = "Sorry, your file was not uploaded.";
                   Yii::$app->session->setFlash('danger', Yii::t('app',$echo. "<br>Atttached file(s):<br> ". $files));
                 } 
-       
         
                 if ((move_uploaded_file($_FILES["filetoupload"]["tmp_name"], $target_file))) {
                     $echo =  "The file ". Html::encode( basename( $_FILES["filetoupload"]["name"])). " has been added and uploaded.<br>Attached file(s): <br>";
@@ -378,19 +374,19 @@ class MailerController extends Controller
     
     public function beforeAction($action) 
     { 
-       if ($action = 'tencode') { 
+       if ($action->id == 'tencode') { 
         $this->enableCsrfValidation = false; 
-        return parent::beforeAction($action); 
-       }
+       }       
+       return parent::beforeAction($action); 
     }
     
     public function afterAction($action, $result)
     {
-        $result = parent::afterAction($action, $result);
-        if ($action = 'tencode') { 
+        $after_result = parent::afterAction($action, $result);
+        if ($action == 'tencode') { 
             $this->enableCsrfValidation = true;             
         }
-        return $result;
+        return $after_result;
     }   
     
     public function select_pdf_invoice_template($overdue)

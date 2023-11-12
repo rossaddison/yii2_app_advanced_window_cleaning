@@ -7,8 +7,6 @@ use Yii;
 
 class Tax extends \yii\db\ActiveRecord
 {
-    public int $tax_id;
-    
     public static function getDb()
     {
        return \frontend\components\Utilities::userdb();

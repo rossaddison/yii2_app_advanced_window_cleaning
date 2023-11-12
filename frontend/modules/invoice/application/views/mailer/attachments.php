@@ -30,7 +30,7 @@ $provider = new ArrayDataProvider([
                         'class' => 'kartik\grid\ActionColumn',
                         'template' => '{link}',// can be omitted, as it is the default
                         'header'=>'View',
-                        'visible'=> Yii::$app->user->can('Manage Admin') ? true : false,
+                        'visible'=> Yii::$app->user->can('editPermission') ? true : false,
                         'buttons' => ['link' => function ($url, $dataProvider,$key) {
                                        return Html::a(Icon::show('eye', ['framework' => Icon::FAS]),$url);
                             }
@@ -46,7 +46,7 @@ $provider = new ArrayDataProvider([
                         'class' => 'kartik\grid\ActionColumn',
                         'template' => '{link}',// can be omitted, as it is the default
                         'header'=>'Delete',
-                        'visible'=> Yii::$app->user->can('Manage Admin') ? true : false,
+                        'visible'=> Yii::$app->user->can('editPermission') ? true : false,
                         'buttons' => ['link' => function ($url, $dataProvider,$key) {
                                        return Html::a(Icon::show('trash-alt', ['framework' => Icon::FAS]),$url);
                             }

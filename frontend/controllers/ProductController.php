@@ -43,7 +43,7 @@ class ProductController extends Controller
                             ],
                 'timestamp' => 
                             [
-                            'class' => TimestampBehavior::className(),
+                            'class' =>TimestampBehavior::class,
                             'attributes' => [
                                                 ActiveRecord::EVENT_BEFORE_INSERT => ['modified_date'],
                                                 ActiveRecord::EVENT_BEFORE_UPDATE => ['modified_date'],
@@ -52,18 +52,20 @@ class ProductController extends Controller
                 'access' => 
                             [
                               'class' => \yii\filters\AccessControl::class,
-                              //'only' => ['index','create','view','update','delete','creategocardlesscustomer','transfer','spreadsheet','subcat','getSubcatlist'],
-                              'rules' => [
-                                            [
-                                                'allow' => true,
-                                                'verbs' => ['POST']
-                                            ],
-                                            [
-                                                  'allow' => true,
-                                                  'roles' => ['admin', 'observer'],
-                                            ],
-                                          ],
-                            ],            
+                              'only' => ['index','create','view','update','delete',
+                                         'creategocardlesscustomer','transfer',
+                                         'spreadsheet','subcat','getSubcatlist'],
+                               'rules' => [
+                                    [
+                                        'allow' => true,
+                                        'verbs' => ['POST']
+                                    ],
+                                    [
+                                          'allow' => true,
+                                          'roles' => ['admin'],
+                                    ],
+                                ],
+                ],            
         ];
          
     }
@@ -96,7 +98,7 @@ class ProductController extends Controller
         $searchModel = new ProductSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->pagination->pageSize=10;
-        $dataProvider->sort->sortParam = false;
+        //$dataProvider->sort->sortParam = false;
         $dataProvider->setSort([
             'attributes' => [
                 'productcategory_id' => [
@@ -111,21 +113,21 @@ class ProductController extends Controller
           ]); 
         
         if (Yii::$app->request->post('hasEditable')) {
-        $editablekey = Yii::$app->request->post('editableKey');
-        $model = Product::findOne($editablekey);
-        $out = Json::encode(['output'=>'', 'message'=>'']);
-        $post = [];
-        $posted = current($_POST['Product']);
-        $post = ['Product' => $posted];
-        if ($model->load($post)) {
-            $model->save();
+            $editablekey = Yii::$app->request->post('editableKey');
+            $model = Product::findOne($editablekey);
+            $out = Json::encode(['output'=>'', 'message'=>'']);
+            $post = [];
+            $posted = current($_POST['Product']);
+            $post = ['Product' => $posted];
+            if ($model->load($post)) {
+                $model->save();
+            }
+            $output = '';
+            if (isset($posted['listprice'])) {
+               $output = Yii::$app->formatter->asDecimal($model->listprice, 2);
+            }
+            return Json::encode(['output'=> $output, 'message'=>'']);
         }
-        $output = '';
-        if (isset($posted['listprice'])) {
-           $output = Yii::$app->formatter->asDecimal($model->listprice, 2);
-        }
-        return Json::encode(['output'=> $output, 'message'=>'']);
-       }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -135,7 +137,7 @@ class ProductController extends Controller
     
     public function actionAssign()
     {
-      //assign selected houses to user that has 'Make payment online' permission.
+      //assign selected houses to user that has 'viewPermission' permission.
       //onlineuser is the dropdownbox specific user's (w61:product/index) user id
       $user_id = Yii::$app->request->get('onlineuser');
       //get the selected houses
@@ -167,7 +169,7 @@ class ProductController extends Controller
     
     public function actionUnassign()
     {
-      //unassign selected houses to user that has 'Make payment online' permission.
+      //unassign selected houses to user that has 'viewPermission' permission.
       //onlineuser is the dropdownbox specific user's (w61:product/index) user id
       $user_id = Yii::$app->request->get('onlineuser');
       //get the selected houses
@@ -284,7 +286,7 @@ class ProductController extends Controller
     public function actionCreate()
     {
         $model = new Product();
-        
+        $user_id = Yii::$app->user->id;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             if ($model->jobcode <> null){
                 //find the latest jobcode
@@ -341,22 +343,21 @@ class ProductController extends Controller
                 } else {
                     Yii::$app->session->setFlash('kv-detail-warning', Yii::t('app','Jobcode ').$model->jobcode . Yii::t('app',' not found. House saved but not saved to latest daliy clean. Copy the house to the daily clean once you have created the daily clean.'));
                 }
-                
             }
-                         return $this->redirect(['view', 'id' => $model->id]);
+                    return $this->redirect(['view', 'id' => $model->id]);
         } else {
         $model->sellstartdate = date('Y-m-d');
         //https://www.yiiframework.com/wiki/806/render-form-in-popup-via-ajax-create-and-update-with-ajax-validation-also-load-any-page-via-ajax-yii-2-0-2-3#how-to-use-a-modal-with-ajax-below-is-any-item-via-ajax
             if (Yii::$app->request->isAjax) {
                 return $this->renderAjax('create', [
-                            'model' => $model
+                        'model' => $model
                 ]);
             } else {
                 return $this->render('create', [
-                        'model' => $model,
+                        'model' => $model
                 ]); 
             }
-      }
+        }
     }
     
     public function actionView($id) {

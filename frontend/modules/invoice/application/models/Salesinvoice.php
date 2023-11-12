@@ -10,7 +10,6 @@ use frontend\models\Salesorderdetail;
 use frontend\models\Product;
 use common\models\User;
 use Yii;
-use yii\db\Expression;
 
 use yii\db\Query;
 
@@ -128,7 +127,7 @@ class Salesinvoice extends \yii\db\ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-             $this->invoice_date_modified = new Expression('NOW()');    
+             $this->invoice_date_modified = date('Y-m-d');    
             return true;
         }
         return false;

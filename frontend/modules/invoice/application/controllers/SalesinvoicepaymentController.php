@@ -73,7 +73,7 @@ class SalesinvoicepaymentController extends Controller
     //activated from product/views/expandableviewdebtsheet
     public function actionCreate()
     {
-        if (!\Yii::$app->user->can('Update Daily Clean')) {
+        if (!\Yii::$app->user->can('editPermission')) {
             throw new \yii\web\ForbiddenHttpException(Yii::t('app','You do not have permission to update this payment.'));
         } 
         $safe = false;
@@ -124,7 +124,7 @@ class SalesinvoicepaymentController extends Controller
     
      public function actionUpdate($id)
     {
-        if (!\Yii::$app->user->can('Update Daily Clean')) {
+        if (!\Yii::$app->user->can('editPermission')) {
             throw new \yii\web\ForbiddenHttpException(Yii::t('app','You do not have permission to update this payment.'));
         } 
         $model = $this->findModel($id);

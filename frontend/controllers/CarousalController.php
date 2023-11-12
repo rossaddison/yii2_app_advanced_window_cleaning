@@ -92,7 +92,7 @@ class CarousalController extends Controller
                 $model->image_web_filename = Yii::$app->security->generateRandomString().".".$uploadedFile->extension;
                 if ($model->validate()) { 
                     $basepath = \Yii::getAlias('@webroot');
-                    if (Yii::$app->user->identity->attributes['name']  === 'demo') {
+                    if (Yii::$app->user->identity->attributes['username']  === 'demo') {
                        $path = $basepath . "/images/demo/".Yii::$app->session['demo_image_timestamp_directory']."/". $model->image_web_filename;
                     }
                     else
@@ -126,7 +126,7 @@ class CarousalController extends Controller
                 if ($model->validate()) {                
                     Yii::$app->params['uploadPath'] = Yii::$app->basePath;
                     $basepath = \Yii::getAlias('@webroot');
-                    if (Yii::$app->user->identity->attributes['name']  === 'demo') {
+                    if (Yii::$app->user->identity->attributes['username']  === 'demo') {
                        $path = $basepath . "/images/demo/".Yii::$app->session['demo_image_timestamp_directory']."/". $model->image_web_filename;
                     }
                     else {
@@ -137,12 +137,13 @@ class CarousalController extends Controller
             }
             if ($model->save())
             {
-                $id = (int)$model->id();
+                $id = (int)$model->id;
                 return $this->redirect(['view', 'id' => $id]);
             } else {
                 return $this->render('update', ['model' => $model]);
             }
         }
+        return $this->render('update', ['model' => $model]);
     }    
     
     /**

@@ -2,7 +2,6 @@
 
 namespace frontend\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use frontend\models\Costcategory;
@@ -23,7 +22,11 @@ class CostcategorySearch extends Costcategory
         return Model::scenarios();
     }
     
-    public function search($params)
+    /**
+     * @param array $params
+     * @return ActiveDataProvider
+     */
+    public function search(array $params)
     {
         $query = Costcategory::find()->orderBy('name');
         $dataProvider = new ActiveDataProvider([

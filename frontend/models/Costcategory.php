@@ -6,6 +6,7 @@ use Yii;
 
 class Costcategory extends \yii\db\ActiveRecord
 {
+      
     /**
      * @inheritdoc
      */
@@ -32,7 +33,6 @@ class Costcategory extends \yii\db\ActiveRecord
             [['tax_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tax::className(), 'targetAttribute' => ['tax_id' => 'tax_id']],
         ];
     }
-
     
     public function attributeLabels()
     {
@@ -57,5 +57,13 @@ class Costcategory extends \yii\db\ActiveRecord
     public function getCostsubcategories()
     {
         return $this->hasMany(Costsubcategory::className(), ['costcategory_id' => 'id']);
+    }
+    
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

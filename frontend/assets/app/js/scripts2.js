@@ -34,7 +34,7 @@ function getKeyscost (){
     //the cost header id value of the date selected in dropdownlist
     var value = e.options[e.selectedIndex].value;
     $.post({ type: "GET",
-             url: '/cost/doit/',
+             url: '/cost/copyit/',
         dataType: "json",
         data: {keylist: keys,
                ccost: value

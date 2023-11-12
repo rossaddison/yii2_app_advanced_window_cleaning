@@ -75,7 +75,7 @@ $provider = new ArrayDataProvider([
                     'class' => 'kartik\grid\ActionColumn',
                     'template' => '{link}',
                     'header'=>$tooltipview,
-                    'visible'=> Yii::$app->user->can('Update Daily Job Sheet') ? true : false,
+                    'visible'=> Yii::$app->user->can('editPermission') ? true : false,
                     'buttons' => [
                             'link' => function ($url, $provider,$key) {
                             $getdate_id = $provider['sales_order_id'];  
@@ -95,7 +95,7 @@ $provider = new ArrayDataProvider([
                     'class' => 'kartik\grid\ActionColumn',
                     'template' => '{link}',
                     'header'=>$tooltippayoff,
-                    'visible'=> Yii::$app->user->can('Update Daily Job Sheet') ? true : false,
+                    'visible'=> Yii::$app->user->can('editPermission') ? true : false,
                     'buttons' => [
                             'link' => function ($url, $provider,$key) {
                             if  ($provider['paid'] < $provider['unit_price']){

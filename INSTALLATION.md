@@ -51,6 +51,11 @@ b. the migration table which will record this migration and create a migration h
 ````
 c:\wamp64\www\yii2_advanced_window_cleaning>yii migrate 
 ````
+
+Note: Depending on your setup you may need to go into the SiteController ... behaviours ...and adjust the role 
+from ['admin'] to ['?'] since the very first user has no authentication or authorisation and is therefore 
+considered a guest ie. ?
+
 First user: Signing up the admin will get user id 1.
 Second user: Signing up the observer will get user id 2. 
 

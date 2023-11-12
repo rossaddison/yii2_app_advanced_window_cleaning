@@ -7,7 +7,7 @@ class GetController extends Controller
 {
     public function actionAttachment($filename)
     {
-        $path = \Yii::getAlias('@webroot').'/frontend/modules/invoice/uploads/';
+        $path = \Yii::getAlias('@base_root').'/frontend/modules/invoice/uploads/';
         $filePath = $path . $filename;
 
         if (strpos(realpath($filePath), $path) !== 0) {

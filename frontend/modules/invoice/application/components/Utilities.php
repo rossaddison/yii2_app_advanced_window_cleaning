@@ -121,6 +121,11 @@ class Utilities
         }
     }
     
+    public static function getPlaceholderRelativeToBaseUrl()
+    {
+        return '/modules/invoice/uploads/';
+    } 
+    
     public static function getPlaceholderRelativeUrl()
     {
         return '/frontend/modules/invoice/uploads/';

@@ -57,7 +57,7 @@ class PaymentinformationController extends InvoicesController
                             ],
                             [
                                   'allow' => true,
-                                  'roles' => ['Online Payer'],
+                                  'roles' => ['admin, observer'],
                             ],
                             ],
                             ],            
@@ -69,7 +69,7 @@ class PaymentinformationController extends InvoicesController
 
     public function actionForm($invoice_url_key = null)
     {
-       If (Yii::$app->user->can('Make payment online')){ 
+       If (Yii::$app->user->can('viewPermission')){ 
         $disable_form = false;
 
         // Check if the invoice exists and is billable

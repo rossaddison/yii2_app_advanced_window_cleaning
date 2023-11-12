@@ -1,7 +1,7 @@
  <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use dosamigos\ckeditor\CKEditor;
+use Itstructure\CKEditor\CKEditor;
 use Yii;
 ?>
 <div class="quicknote-form">

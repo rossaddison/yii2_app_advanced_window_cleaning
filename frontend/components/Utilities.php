@@ -430,7 +430,7 @@ public static function home_tab4_content()
                                         $my_content = "<b>" . $street_name ."</b>" . "<br>";
                                         $url =  "https://maps.google.com/maps?q=".$street_name;
                                         foreach ($all_houses_in_street as $key =>$value){
-                                            if (Yii::$app->user->can('See Prices')){
+                                            if (Yii::$app->user->can('editPermission')){
                                                 $seeprices = $all_houses_in_street[$key]['listprice'];
                                             } else { $seeprices = 0;}
                                             $my_content = $my_content 
@@ -490,7 +490,7 @@ public static function  Home_tabs_service()
                 'headerOptions' => $header_options,
                 'options'=> $options,
                 //the admininstrator can only see the Last Customer
-                'visible' => Yii::$app->user->can('Manage Admin'),
+                'visible' => Yii::$app->user->can('editPermission'),
                 'content' => '<table border="1" class="table striped bordered">'
                              . Utilities::home_tab1_content_a() 
                              . Utilities::home_tab1_content_b()
@@ -502,7 +502,7 @@ public static function  Home_tabs_service()
                'headerOptions' => $header_options,               
                'options'=> $options,
                //the employee can see the Cleans Due
-               'visible' => Yii::$app->user->can('Manage Basic'),
+               'visible' => Yii::$app->user->can('editPermission'),
                'content' => '<table border="1" class="table striped bordered">'
                             .'<tr><td>'
                             . Utilities::home_tab2_content()
@@ -514,7 +514,7 @@ public static function  Home_tabs_service()
                'headerOptions'=> $header_options,               
                'options'=> $options,
                 //the employee can see Todays Cleans
-               'visible' => Yii::$app->user->can('Manage Basic'),
+               'visible' => Yii::$app->user->can('editPermission'),
                'content' =>  '<table border="1" class="table striped bordered">'
                              // .Utilities::home_tab3_content()
                               .'</table>',
@@ -523,7 +523,7 @@ public static function  Home_tabs_service()
                'label' => 'Postcode Maps',
                'headerOptions'=> $header_options,
                 //the employee can see the Postcode Maps where he has to go to
-               'visible' => Yii::$app->user->can('Manage Basic'),
+               'visible' => Yii::$app->user->can('editPermission'),
                'options'=> $options,
                'content' =>  '<table border="1" class="table striped bordered">'
                               .Utilities::home_tab4_content()
@@ -532,14 +532,14 @@ public static function  Home_tabs_service()
            [
                'label' => 'Customer Search',
                'headerOptions'=> $header_options,
-               'visible' => Yii::$app->user->can('Manage Basic'),
+               'visible' => Yii::$app->user->can('editPermission'),
                'options'=> $options,
                'url'=> Url::toRoute(['product/search']),
            ],
            [
                'label' => 'Tree',
                'headerOptions'=> $header_options,
-               'visible' => Yii::$app->user->can('Manage Basic'),
+               'visible' => Yii::$app->user->can('editPermission'),
                'options'=> $options,
                'url'=> Url::toRoute(['krajeeproducttree/index']),
            ],  

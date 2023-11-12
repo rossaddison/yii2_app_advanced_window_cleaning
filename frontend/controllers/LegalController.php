@@ -43,7 +43,7 @@ class LegalController extends Controller
             ],
              'timestamp' => 
                             [
-                            'class' => TimestampBehavior::className(),
+                            'class' =>TimestampBehavior::class,
                             'attributes' => [
                                                 ActiveRecord::EVENT_BEFORE_INSERT => [
                                                 'last_updated'],

@@ -136,7 +136,7 @@ class ProductsubcategoryController extends Controller
     
     public function actionUpdate($id)
     {
-        if (!\Yii::$app->user->can('Update Street')) {
+        if (!\Yii::$app->user->can('editPermission')) {
             throw new \yii\web\ForbiddenHttpException(Yii::t('app','You do not have permission to update a street.'));
         }
         
@@ -153,7 +153,7 @@ class ProductsubcategoryController extends Controller
 
     public function actionDelete($id)
     {
-        if (!\Yii::$app->user->can('Delete Street')) {
+        if (!\Yii::$app->user->can('editPermission')) {
             throw new \yii\web\ForbiddenHttpException(Yii::t('app','You do not have permission to delete a street.'));
         }
         try{

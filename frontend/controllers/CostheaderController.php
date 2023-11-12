@@ -28,7 +28,7 @@ class CostheaderController extends Controller
             ],
             'timestamp' => 
                             [
-                            'class' => TimestampBehavior::className(),
+                            'class' =>TimestampBehavior::class,
                             'attributes' => [
                                                 ActiveRecord::EVENT_BEFORE_INSERT => ['modified_date'],
                                                 ActiveRecord::EVENT_BEFORE_UPDATE => ['modified_date'],

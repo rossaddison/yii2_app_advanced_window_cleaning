@@ -89,7 +89,7 @@
     </div>
 <?php NavBar::end(); ?>
 <?php } ?>   
-<?php if (Yii::$app->user->can('Manage Admin')) { ;?> 
+<?php if (Yii::$app->user->can('editPermission')) { ;?> 
 <?php NavBar::begin(['options' => ['class' => 'navbar navbar-inverse navbar-expand-sm', 'role'=>'navigation','id'=>'ip-navbar-collapse']]);?>
     <div>
         <div class="navbar-header">

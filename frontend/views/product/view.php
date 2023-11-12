@@ -2,6 +2,7 @@
 use kartik\detail\DetailView;
 use yii\helpers\ArrayHelper;
 use frontend\models\Productcategory;
+use common\models\User;
 use yii\helpers\Url;
 use Yii;
 $this->title=Yii::t('app','View House'); 
@@ -79,6 +80,14 @@ $attributes=[
     'jobcode',
     'mandate',
     'gc_number',
+    [
+     'attribute'=>'user_id',
+     'type'=>  DetailView::INPUT_DROPDOWN_LIST,
+     'items'=>ArrayHelper::map(User::find()->orderBy('username')->all(),'id','username'), 
+     'options'=> ['id'=>'user_id'],
+     'value'=>$model->user_id, 
+      
+    ],
 ];
 
     echo DetailView::widget([

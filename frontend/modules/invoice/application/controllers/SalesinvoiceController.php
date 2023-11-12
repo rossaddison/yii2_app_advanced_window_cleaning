@@ -27,7 +27,7 @@ class SalesinvoiceController extends Controller
         return [
                 'timestamp' => 
                             [
-                            'class' => TimestampBehavior::className(),
+                            'class' =>TimestampBehavior::class,
                             'attributes' => [
                                                 ActiveRecord::EVENT_BEFORE_INSERT => ['invoice_date_modified'],
                                                 ActiveRecord::EVENT_BEFORE_UPDATE => ['invoice_date_modified'],

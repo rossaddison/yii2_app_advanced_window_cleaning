@@ -163,14 +163,24 @@ class IpController extends Controller
                     Yii::$app->session->setFlash('success',Yii::t('app','Settings saved successfully'));   
                 }
             } //foreach
-            if ($_FILES['invoice_logo']['name']) {
-                   $uploadedFile = UploadedFile::getInstanceByName('invoice_logo','file');
-                   if (!empty($uploadedFile)) { 
-                         $basepath = \Yii::getAlias('@webroot');
-                         $path = $basepath . Utilities::getPlaceholderRelativeUrl() . $uploadedFile->name;
-                         $uploadedFile->saveAs($path); 
-                         $this->mdl_settings->save('invoice_logo', $uploadedFile->name);
-                         Yii::$app->session->setFlash('success',Yii::t('app','Settings saved successfully'));
+            if ($_FILES['imageFile']['name']) {
+                   $uploadedFile = UploadedFile::getInstanceByName('imageFile');
+                   if (!empty($uploadedFile)) {  
+                        $frontendpath = \Yii::getAlias('@frontend');
+                        $path = $frontendpath . Utilities::getPlaceholderRelativeToBaseUrl() . $uploadedFile->name;
+                        $web_path = Yii::getAlias('@frontend').'/web/images/'.$uploadedFile->name; 
+                        $tmp = $_FILES['imageFile']['tmp_name'];  
+                        // and save a copy to the web folder which is where the .htaccess file 
+                        $file_exists = file_exists($web_path);
+                        // The file does not exist yet in the target path but it exists in the tmp folder on the server
+                        if (!$file_exists) {
+                            if (is_uploaded_file($tmp) && move_uploaded_file($tmp, $web_path)) {
+                                // save a copy to the frontend/modules/invoice/uploads folder
+                                $uploadedFile->saveAs($path);
+                            }
+                        }    
+                        $this->mdl_settings->save('invoice_logo', $uploadedFile->name);
+                        Yii::$app->session->setFlash('success',Yii::t('app','Settings saved successfully'));
                    }
             } 
             } //post settings

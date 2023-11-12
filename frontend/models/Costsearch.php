@@ -40,7 +40,12 @@ class Costsearch extends Cost
         ];
     }
     
-    public function search($params)
+    /**
+     * 
+     * @param array $params
+     * @return ActiveDataProvider
+     */
+    public function search(array $params)
     {
         $query = Cost::find();
         

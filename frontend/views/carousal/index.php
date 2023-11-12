@@ -22,7 +22,7 @@ $updateMsg = Yii::t('app','Update');
             [
                     'class' => 'kartik\grid\ActionColumn',
                     'dropdown' => true,
-                    'visible' => Yii::$app->user->can('Manage Admin'),
+                    'visible' => Yii::$app->user->can('editPermission'),
                     'dropdownOptions' => ['class' => 'pull-right'],
                     'template'=> '{view} {update} {delete}',
                     'viewOptions' => ['title' => $viewMsg, 'data-toggle' => 'tooltip'],
@@ -37,7 +37,7 @@ $updateMsg = Yii::t('app','Update');
                      'attribute' => 'Image',
                      'format' => 'raw',
                      'value' => function ($model) {
-                          if (Yii::$app->user->identity->attributes['name'] === 'demo') {
+                          if (Yii::$app->user->identity->attributes['username'] === 'demo') {
                               if ($model->image_web_filename!='') {
                                     return '<img src="'.Url::to('@web/images/demo/'.Yii::$app->session['demo_image_timestamp_directory'].'/'.$model->image_web_filename.'" width=50px">', true); } else 
                                {
@@ -46,7 +46,7 @@ $updateMsg = Yii::t('app','Update');
                           } else
                           {
                               if ($model->image_web_filename!='') {
-                                    return '<img src="'.Url::to('@web/images/'.$model->image_web_filename.'" width=50px">', true); 
+                                    return '<img src="'.Url::to('@web/images/'.$model->image_web_filename.'" width=50px data-bs-toggle="tooltip" title="@web/images/'.$model->image_web_filename.'">', true); 
                               } else 
                               { 
                                  return Yii::t('app','no image');
@@ -62,6 +62,7 @@ $updateMsg = Yii::t('app','Update');
             'fontcolor',
         ],
     ]); ?>
+     
     
     
     

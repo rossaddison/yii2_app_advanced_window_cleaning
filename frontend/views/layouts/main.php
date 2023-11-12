@@ -93,7 +93,7 @@ $this->registerJs($js);
                             ['label' => str_repeat("&nbsp;", 2).Html::button(Yii::t('app','Signup a User'),['class'=>'btn btn-info btn-lg']), 'url' => ['/site/signup'],],
                   ],
                 ],
-                ['label' => Html::button(Yii::t('app','Quick Note'),['class'=>'btn btn-primary btn-lg']),'url'=> '/quicknote/create','visible'=>Yii::$app->user->can('Manage Basic'),
+                ['label' => Html::button(Yii::t('app','Quick Note'),['class'=>'btn btn-primary btn-lg']),'url'=> '/quicknote/create','visible'=>Yii::$app->user->can('editPermission'),
                  'items' => [                        
                 ],
                 ],

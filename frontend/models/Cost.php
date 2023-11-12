@@ -1,17 +1,16 @@
 <?php
 
 namespace frontend\models;
-use yii\db\Expression;
-
 
 use Yii;
 
 class Cost extends \yii\db\ActiveRecord
 {
+       
     public static function getDb()
-   {
+    {
        return \frontend\components\Utilities::userdb();
-   }    
+    }    
     
     public static function tableName()
     {
@@ -39,8 +38,6 @@ class Cost extends \yii\db\ActiveRecord
         ];
     }
     
-     
-
     public function attributeLabels()
     {
         return [
@@ -77,9 +74,25 @@ class Cost extends \yii\db\ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-             $this->modifieddate = new Expression('NOW()');    
+             $this->modifieddate = date('Y-m-d');    
             return true;
         }
         return false;
+    }
+    
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+    
+    /**
+     * @var float
+     */
+    public function getListPrice()
+    {
+       return $this->listprice ?: 0.00; 
     }
 }

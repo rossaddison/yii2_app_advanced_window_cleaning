@@ -3,7 +3,7 @@ namespace frontend\widgets;
 
 class Alert extends \yii\bootstrap4\Widget
 {
-    public $alertTypes = [
+    public array $alertTypes = [
         'error'   => 'alert-danger',
         'danger'  => 'alert-danger',
         'success' => 'alert-success',
@@ -11,8 +11,11 @@ class Alert extends \yii\bootstrap4\Widget
         'warning' => 'alert-warning'
     ];
 
-    public $closeButton = [];
-
+    public array $closeButton = [];
+    
+    /**
+     * @return void
+     */
     public function init()
     {
         parent::init();

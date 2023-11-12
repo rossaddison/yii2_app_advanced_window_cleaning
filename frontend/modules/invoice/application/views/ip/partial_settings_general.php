@@ -3,6 +3,7 @@
    use frontend\modules\invoice\application\helpers\NumberHelper;
    use kartik\icons\Icon;
    use yii\helpers\Html;
+   use yii\helpers\Url;
 ?>
 <div class="row">
     <div class="col-xs-12 col-md-8 col-md-offset-2">

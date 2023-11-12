@@ -2,7 +2,7 @@
    //use frontend\modules\invoice\application\libraries\Sumex;
    use frontend\modules\invoice\application\components\Utilities;
    use yii\helpers\ArrayHelper;
-   use yii\helpers\Html;
+   use yii\helpers\html;
    use kartik\icons\Icon;
    use kartik\widgets\FileInput;
 ?>
@@ -12,7 +12,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <?= Utilities::trans('invoices');  ?>
+                <?= Utilities::trans('invoices'); ?>
             </div>
             <div class="panel-body">
 
@@ -131,9 +131,9 @@
                         <div class="form-group">
                             <?= Utilities::trans('invoice_logo'); ?><?= str_repeat(' ', 2) ?><?= '*.jpg,jpeg,gif,png' ?>
                             <?php if ($mdl_settings->get_setting('invoice_logo')) { ?>
-                                <br>
-                                <?= $mdl_settings->get_setting('invoice_logo'); ?>
-                                <br>
+                            <label>
+                                <?php echo $mdl_settings->get_setting('invoice_logo'); ?>
+                            </label>   
                             <?php } ?> 
                             <?=
                                // https://demos.krajee.com/widget-details/fileinput
@@ -142,6 +142,8 @@
                                 'id' => 'imageFile',
                                 'options'=>['accept'=>'image/*'],
                                 'pluginOptions'=>[
+                                    'maxImageWidth' => 60,
+                                    'maxImageHeight' => 60,
                                     'allowedFileExtensions'=>['jpg', 'jpeg', 'gif','png'], 
                                     'showUpload'=>false,
                                     'showRemove'=>false,
@@ -156,6 +158,16 @@
                                     'removeIcon' => '<i class="glyphicon glyphicon-trash"></i> '    
                                 ]
                                ]); ?>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <a data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4">
+                                    <?php
+                                       // web access occurs at .htaccess file in frontend/web folders 
+                                       echo Html::img(Yii::getAlias('@web').'/images/'. $mdl_settings->get_setting('invoice_logo'),['class'=>'img-fluid']); 
+                                    ?>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

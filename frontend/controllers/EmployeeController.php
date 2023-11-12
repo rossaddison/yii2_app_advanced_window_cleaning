@@ -23,15 +23,15 @@ class EmployeeController extends Controller
                 ],
             ],
             'access' => 
-                            [
-                            'class' => \yii\filters\AccessControl::class,
-                            'only' => ['index','create', 'update','delete','view'],
-                            'rules' => [
-                            [
-                              'allow' => true,
-                              'roles' => ['admin'],
-                            ],
-                            ],
+                [
+                'class' => \yii\filters\AccessControl::class,
+                'only' => ['index','create', 'update','delete','view'],
+                'rules' => [
+                [
+                  'allow' => true,
+                  'roles' => ['admin'],
+                ],
+                ],
             ], 
         ];
     }
@@ -56,9 +56,9 @@ class EmployeeController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView(int $id)
     {
-        $this->render('view', [
+        return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }

@@ -5,6 +5,7 @@
     use yii\widgets\ActiveForm;
     use frontend\models\Productcategory;
     use frontend\models\Salesorderheader;
+    use common\models\User;
     use kartik\depdrop\DepDrop;
     use Yii;
 ?>
@@ -44,10 +45,12 @@
                                 ]]) ?> 
     <?php  ///$form->field($model, 'discontinueddate')->widget(\yii\jui\DatePicker::classname(),[ 'dateFormat' => 'yyyy-MM-dd','inline'=>'true',]) ?>
     <?= $form->field($model, 'isactive')->checkbox() ?>
-    <?= $form->field($model, 'jobcode')->dropDownList(ArrayHelper::map(Salesorderheader::find()->orderBy('status')->asArray()->all(),'status','status'), ['prompt' => 'Select']) ?>
+    <?= $form->field($model, 'jobcode')->dropDownList(ArrayHelper::map(Salesorderheader::find()->orderBy('status')->asArray()->all(),'status','status'), ['prompt' => 'Select']); ?>
+    <?= $form->field($model, 'user_id')->dropDownList(ArrayHelper::map(User::find()->orderBy('username')->all(),'id','username'),['prompt'=>'Select...','id'=>'user_id']); ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>
+
 

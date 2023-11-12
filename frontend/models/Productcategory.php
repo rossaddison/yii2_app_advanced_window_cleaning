@@ -6,11 +6,12 @@ use Yii;
 
 class Productcategory extends \yii\db\ActiveRecord
 {
+    private $name;
     
-     public static function getDb()
-   {
+    public static function getDb()
+    {
        return \frontend\components\Utilities::userdb();
-   }    
+    }    
     
     public static function tableName()
     {

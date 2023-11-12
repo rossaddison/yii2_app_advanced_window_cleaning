@@ -15,7 +15,7 @@ class ViewController extends GuestController
 {
     public function actionInvoice($invoice_url_key = '')
     {
-      if (Yii::$app->user->can('Make payment online')) {
+      if (Yii::$app->user->can('viewPermission')) {
         $this->layout = 'layout_guest';  
         if (!$invoice_url_key) {
             echo Yii::error(Utilities::trans('errors'));
@@ -66,7 +66,7 @@ class ViewController extends GuestController
     
     public function actionPdf($invoice_url_key)
     {       
-       if (Yii::$app->user->can('Make payment online'))  
+       if (Yii::$app->user->can('viewPermission'))  
        { 
         $invoice = Salesinvoice::find()->where(['in','invoice_status_id',[2,3,4]])->andWhere(['=','invoice_url_key' , $invoice_url_key])->andWhere(['in','product_id', $this->houses])->one();
         if (empty($invoice)) {

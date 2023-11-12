@@ -4,6 +4,7 @@ namespace frontend\models;
 
 use frontend\models\Productcategory;
 use frontend\models\Productsubcategory;
+use common\models\User;
 
 use Yii;
 
@@ -11,25 +12,6 @@ class Product extends \yii\db\ActiveRecord
 {
    public $importfile;
    
-   // fields used in testing ProductTest
-   public $name;
-   public $surname;
-   public $contactmobile;
-   public $specialrequest;
-   public $listprice;
-   public $frequency;
-   public $productnumber;
-   public $postcodefirsthalf;
-   public $postcodesecondhalf;
-   public $email;
-   public $productsubcategory_id;
-   public $productcategory_id;
-   public $sellstartdate;
-   public $sellenddate;
-   public $discontinueddate;
-   public $is_active;
-   public $mandate;
-   public $gc_number;
    
    public static function getDb()
    {
@@ -46,7 +28,7 @@ class Product extends \yii\db\ActiveRecord
         return [
             [['listprice','frequency','productsubcategory_id'], 'required'],
             [['listprice'], 'number'],
-            [['productsubcategory_id','productcategory_id'], 'integer'],
+            [['productsubcategory_id','productcategory_id','user_id'], 'integer'],
             [['frequency'],'string'],
             [['frequency'],'default','value'=>'Monthly'],
             [['sellstartdate', 'discontinueddate'], 'default','value'=>null],
@@ -66,6 +48,7 @@ class Product extends \yii\db\ActiveRecord
             [['specialrequest'], 'string', 'max' => 100],
             [['productsubcategory_id'], 'exist', 'skipOnError' => true, 'targetClass' => Productsubcategory::className(), 'targetAttribute' => ['productsubcategory_id' => 'id']],
             [['productcategory_id'], 'exist', 'skipOnError' => true, 'targetClass' => Productcategory::className(), 'targetAttribute' => ['productcategory_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
             [['isactive'],'default','value'=>1],
             [['jobcode','mandate','gc_number','image_source_filename','image_web_filename'],'default','value'=>null],            
             [['isactive'],'boolean'],
@@ -95,9 +78,17 @@ class Product extends \yii\db\ActiveRecord
             'jobcode' => Yii::t('app','Latest daily clean job code to link house to.'),
             'mandate'=> Yii::t('app','Gocardless customer mandate link sent to customer in email (not approved yet) / Mandate Number eg. MD1234AA123BB (approved) '),
             'gc_number'=> Yii::t('app','Gocardless customer number in Gocardless Website indicating that direct debit mandate has been approved.'),
-          ];
+            // the user id is hidden on the input and view
+            'user_id' => Yii::t('app','The User that will be responsible for Paying'),
+        ];
     }
-
+        
+    public function getSalesorderdetails()
+    {
+        return $this->hasMany(Salesorderdetail::className(), ['product_id' => 'id']);
+    }
+    
+    // foreign keys 
     public function getProductcategory()
     {
         return $this->hasOne(Productcategory::className(), ['id' => 'productcategory_id']);
@@ -107,17 +98,7 @@ class Product extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Productsubcategory::className(), ['id' => 'productsubcategory_id']);
     }
-    
-    public function getSalesorderdetails()
-    {
-        return $this->hasMany(Salesorderdetail::className(), ['product_id' => 'id']);
-    }
-    
-    public function getUser()
-    {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
-    }
-    
+        
     /**
      * @see \frontend\tests\unit\models\ProductTest
      * @return null|bool
@@ -147,6 +128,7 @@ class Product extends \yii\db\ActiveRecord
         $product->is_active = $this->is_active;
         $product->mandate = $this->mandate;
         $product->gc_number = $this->gc_number;
+        $product->user_id = $this->user_id;
         if ($product->save()) {
             return true;
         }

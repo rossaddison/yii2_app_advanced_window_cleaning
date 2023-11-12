@@ -27,23 +27,15 @@ class SalesinvoiceuploadsController extends Controller
                 ],
             ],
             'access' => 
-                            [
-                            'class' => \yii\filters\AccessControl::class,
-                            'only' => ['index','create', 'update','delete','view'],
-                            'rules' => [
-                            [
-                              'allow' => true,
-                              'roles' => ['@'],
-                            ],
-                            [
-                              'allow' => true,
-                              'roles' => ['Manage Admin','Admin'],
-                            ],  
-                            [
-                              'allow' => true,
-                              'verbs' => ['POST']
-                            ],  
-                            ],
+                [
+                'class' => \yii\filters\AccessControl::class,
+                'only' => ['index','create', 'update','delete','view'],
+                'rules' => [
+                [
+                  'allow' => true,
+                  'roles' => ['@'],
+                ],
+                ],
             ], 
         ];
     }
@@ -115,16 +107,12 @@ class SalesinvoiceuploadsController extends Controller
     }
 
     /**
-     * Deletes an existing Salesinvoiceuploads model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @param int $id
+     * @return \yii\web\Response
      */
-    public function actionDelete($id)
+    public function actionDelete(int $id)
     {
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 

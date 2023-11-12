@@ -7,10 +7,12 @@ use frontend\models\Costcategory;
 use frontend\models\CostcategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 use yii\filters\VerbFilter;
 
 class CostcategoryController extends Controller
 {
+    public $id;
     
     public function behaviors()
     {
@@ -31,15 +33,18 @@ class CostcategoryController extends Controller
                               'roles' => ['admin'],
                             ],
                             ],
-            ], 
-              
+            ],
         ];
     }
 
+    /**
+     * @return string
+     */
     public function actionIndex()
     {
         $searchModel = new CostcategorySearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $queryParams = Yii::$app->request->queryParams;
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -47,55 +52,73 @@ class CostcategoryController extends Controller
         ]);
     }
 
-    public function actionView($id)
+    /**
+     * @param int $id
+     * @return string
+     */
+    public function actionView(int $id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
-       
-        
     }
 
+    /**
+     * @return Response|string
+     */
     public function actionCreate()
     {
-       $model = new Costcategory();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $model = new Costcategory();
+        if ($model->load((array)Yii::$app->request->post()) && $model->save()) {
+            $id = $model->getId();
+            return $this->redirect(['view', 'id' => $id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                
             ]);
         }
-       
     }
-
-    public function actionUpdate($id)
+    
+    /**
+     * @param int $id
+     * @return Response|string
+     */
+    public function actionUpdate(int $id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load((array)Yii::$app->request->post()) && $model->save()) {
+            $id = $model->getId();
+            return $this->redirect(['view', 'id' => $id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
             ]);
         }
-        
     }
 
-    
-    public function actionDelete($id)
+    /**
+     * 
+     * @param int $id
+     * @return Response
+     * @throws \yii\web\HttpException
+     */
+    public function actionDelete(int $id)
     {
         try{
         $this->findModel($id)->delete();
         return $this->redirect(['index']);
-        } catch(IntegrityException $e) {
-              throw new \yii\web\HttpException(404, Yii::t('app','First delete the cost subcategory or cost then you will be able to delete this file.'));
+        } catch(\yii\db\IntegrityException $e) {
+              throw new \yii\web\HttpException(404, Yii::t('app','First delete the cost subcategory or cost then you will be able to delete this file. Exception: {$e}'));
         }
     }
 
-    protected function findModel($id)
+    /**
+     * @param int $id
+     * @return Costcategory
+     * @throws NotFoundHttpException
+     */
+    protected function findModel(int $id)
     {
         if (($model = Costcategory::findOne($id)) !== null) {
             return $model;

@@ -5111,16 +5111,16 @@
         },
         {
             "name": "mpdf/mpdf",
-            "version": "v8.2.0",
+            "version": "v8.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mpdf/mpdf.git",
-                "reference": "170a236a588d177c2aa7447ce490a030ca68e6f4"
+                "reference": "596a87b876d7793be7be060a8ac13424de120dd5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mpdf/mpdf/zipball/170a236a588d177c2aa7447ce490a030ca68e6f4",
-                "reference": "170a236a588d177c2aa7447ce490a030ca68e6f4",
+                "url": "https://api.github.com/repos/mpdf/mpdf/zipball/596a87b876d7793be7be060a8ac13424de120dd5",
+                "reference": "596a87b876d7793be7be060a8ac13424de120dd5",
                 "shasum": ""
             },
             "require": {
@@ -5130,7 +5130,7 @@
                 "mpdf/psr-log-aware-trait": "^2.0 || ^3.0",
                 "myclabs/deep-copy": "^1.7",
                 "paragonie/random_compat": "^1.4|^2.0|^9.99.99",
-                "php": "^5.6 || ^7.0 || ~8.0.0 || ~8.1.0 || ~8.2.0",
+                "php": "^5.6 || ^7.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0",
                 "psr/http-message": "^1.0 || ^2.0",
                 "psr/log": "^1.0 || ^2.0 || ^3.0",
                 "setasign/fpdi": "^2.1"
@@ -5188,7 +5188,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-09-01T11:44:52+00:00"
+            "time": "2023-11-07T13:52:14+00:00"
         },
         {
             "name": "mpdf/psr-http-message-shim",
@@ -5412,12 +5412,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PhpSpreadsheet.git",
-                "reference": "98b5c77424b8d1fa822461999684df125f66be75"
+                "reference": "ef3890aad34e3b7ce059de8536134896638b3663"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/98b5c77424b8d1fa822461999684df125f66be75",
-                "reference": "98b5c77424b8d1fa822461999684df125f66be75",
+                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/ef3890aad34e3b7ce059de8536134896638b3663",
+                "reference": "ef3890aad34e3b7ce059de8536134896638b3663",
                 "shasum": ""
             },
             "require": {
@@ -5510,7 +5510,7 @@
                 "issues": "https://github.com/PHPOffice/PhpSpreadsheet/issues",
                 "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/master"
             },
-            "time": "2023-10-31T16:08:15+00:00"
+            "time": "2023-11-07T17:07:11+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -7417,12 +7417,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mailer.git",
-                "reference": "8871442fc9a3406a3fd73bef4977d4d6d2826924"
+                "reference": "aa2f6d984ba55e5edca39a9bdda6713392b24a5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mailer/zipball/8871442fc9a3406a3fd73bef4977d4d6d2826924",
-                "reference": "8871442fc9a3406a3fd73bef4977d4d6d2826924",
+                "url": "https://api.github.com/repos/symfony/mailer/zipball/aa2f6d984ba55e5edca39a9bdda6713392b24a5d",
+                "reference": "aa2f6d984ba55e5edca39a9bdda6713392b24a5d",
                 "shasum": ""
             },
             "require": {
@@ -7489,7 +7489,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-10-02T10:37:53+00:00"
+            "time": "2023-11-07T15:10:37+00:00"
         },
         {
             "name": "symfony/mime",
@@ -8247,12 +8247,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "0b93f32e16c7eb7094d26887f8657fe84cfd0a4f"
+                "reference": "a91571ff5df8825fcc74569d99cddc7242f479b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/0b93f32e16c7eb7094d26887f8657fe84cfd0a4f",
-                "reference": "0b93f32e16c7eb7094d26887f8657fe84cfd0a4f",
+                "url": "https://api.github.com/repos/symfony/process/zipball/a91571ff5df8825fcc74569d99cddc7242f479b7",
+                "reference": "a91571ff5df8825fcc74569d99cddc7242f479b7",
                 "shasum": ""
             },
             "require": {
@@ -8300,7 +8300,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-02T13:23:55+00:00"
+            "time": "2023-11-04T20:16:32+00:00"
         },
         {
             "name": "symfony/service-contracts",
@@ -9636,12 +9636,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/clue/reactphp-stdio.git",
-                "reference": "27df4ca165a7d3c8425052b48149b359e43da4ba"
+                "reference": "d8fb651ea509856535c05c14988b2871985deeaa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/clue/reactphp-stdio/zipball/27df4ca165a7d3c8425052b48149b359e43da4ba",
-                "reference": "27df4ca165a7d3c8425052b48149b359e43da4ba",
+                "url": "https://api.github.com/repos/clue/reactphp-stdio/zipball/d8fb651ea509856535c05c14988b2871985deeaa",
+                "reference": "d8fb651ea509856535c05c14988b2871985deeaa",
                 "shasum": ""
             },
             "require": {
@@ -9705,7 +9705,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-02-23T11:40:59+00:00"
+            "time": "2023-11-07T16:17:28+00:00"
         },
         {
             "name": "clue/term-react",
@@ -9713,12 +9713,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/clue/reactphp-term.git",
-                "reference": "bc0a87ffbc6675370ec1676b69ddfbc818524d39"
+                "reference": "5e21b57e5299828ff28b4ce62f24966392ea47e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/clue/reactphp-term/zipball/bc0a87ffbc6675370ec1676b69ddfbc818524d39",
-                "reference": "bc0a87ffbc6675370ec1676b69ddfbc818524d39",
+                "url": "https://api.github.com/repos/clue/reactphp-term/zipball/5e21b57e5299828ff28b4ce62f24966392ea47e7",
+                "reference": "5e21b57e5299828ff28b4ce62f24966392ea47e7",
                 "shasum": ""
             },
             "require": {
@@ -9779,7 +9779,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-02-23T11:39:42+00:00"
+            "time": "2023-11-07T16:30:03+00:00"
         },
         {
             "name": "clue/utf8-react",
@@ -14258,12 +14258,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "7acc50eef016527965d12a2767aacc37c7aaf2da"
+                "reference": "5f0798844ecb2cf06c54af802f2ce5b7c7480178"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/7acc50eef016527965d12a2767aacc37c7aaf2da",
-                "reference": "7acc50eef016527965d12a2767aacc37c7aaf2da",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/5f0798844ecb2cf06c54af802f2ce5b7c7480178",
+                "reference": "5f0798844ecb2cf06c54af802f2ce5b7c7480178",
                 "shasum": ""
             },
             "require": {
@@ -14361,7 +14361,7 @@
                 "issues": "https://github.com/vimeo/psalm/issues",
                 "source": "https://github.com/vimeo/psalm"
             },
-            "time": "2023-11-03T19:57:06+00:00"
+            "time": "2023-11-06T21:42:54+00:00"
         },
         {
             "name": "webmozart/assert",

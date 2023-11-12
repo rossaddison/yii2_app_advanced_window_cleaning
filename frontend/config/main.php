@@ -22,7 +22,7 @@ return [
         ],
         'session' => [
             // this is the name of the session cookie used for login on the frontend
-            'name' => 'advanced-frontend',
+            'name' => 'advanced-frontend'
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -40,7 +40,7 @@ return [
             'enablePrettyUrl' => true,
             'enableStrictParsing' => false,
             'showScriptName' => false,
-            'baseUrl'=>'/',
+            //'baseUrl'=>'/',
             'rules' => [
                 'your-settings/<action:\w+>/<id:\d+>'=>'company/<action>',
                 'work-area/<action:\w+>/<id:\d+>' => 'productcategory/<action>',

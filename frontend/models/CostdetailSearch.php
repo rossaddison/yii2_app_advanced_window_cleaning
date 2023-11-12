@@ -32,9 +32,12 @@ class CostdetailSearch extends Costdetail
         return Model::scenarios();
     }
 
-    public function search($params)
+    /**
+     * @param array $params
+     * @return ActiveDataProvider
+     */
+    public function search(array $params)
     {
-        
         $query = Costdetail::find();
         $query->joinWith(['costsubcategory','cost']);
         $dataProvider = new ActiveDataProvider([
