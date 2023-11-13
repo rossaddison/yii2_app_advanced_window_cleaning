@@ -1,6 +1,8 @@
 <?php
+declare(strict_types=1); 
 
 namespace frontend\models;
+
 use frontend\models\Product;
 use frontend\models\Productcategory;
 use Yii;

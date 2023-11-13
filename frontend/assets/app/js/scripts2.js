@@ -34,7 +34,7 @@ function getKeyscost (){
     //the cost header id value of the date selected in dropdownlist
     var value = e.options[e.selectedIndex].value;
     $.post({ type: "GET",
-             url: '/cost/copyit/',
+             url: '/cost/doit/',
         dataType: "json",
         data: {keylist: keys,
                ccost: value
@@ -179,7 +179,6 @@ function getUnpaidcostticks (){
         },
         success: $.pjax.reload({container:'#kv-unique-id-1'})
     });
-
 }
 
 function getDeleteticks (){
@@ -191,9 +190,7 @@ function getDeleteticks (){
         data: {keylist: keys                                    
         },
         success: $.pjax.reload({container:'#kv-unique-id-1'}) 
-        
     });
-
 }
 
 function getDeletecostticks (){

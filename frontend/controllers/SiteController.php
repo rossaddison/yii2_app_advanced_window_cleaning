@@ -1,9 +1,12 @@
 <?php
+declare(strict_types=1); 
+
 namespace frontend\controllers;
 
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\Session;
 use frontend\models\Company;
 use frontend\models\Sessiondetail;
 use yii\helpers\Json;
@@ -32,7 +35,7 @@ class SiteController extends Controller
                 'rules' => [
                     [
                         //only an administrator can signup future observers a.k.a clients
-                        'actions' => ['signup'],
+                        'actions' => ['signup','clear'],
                         'allow' => true,
                         'roles' => ['admin'],
                     ],
@@ -62,6 +65,22 @@ class SiteController extends Controller
             ],
         ];
     }
+    
+    /**
+     * @return string
+     */
+    public function actionClear()
+    {
+        Yii::$app->clearFrontendCache->flush(); 
+        $session = Yii::$app->session;
+        if ($session->isActive) {
+            $session->open();
+        } else {
+            $session = new Session();
+        }
+        $session->setFlash('info', 'The frontend cache has been cleared.');
+        return $this->render('index');
+    }        
 
     /**
      * Displays homepage.

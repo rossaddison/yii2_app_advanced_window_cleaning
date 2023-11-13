@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1); 
 
 namespace frontend\models;
 
@@ -89,10 +90,46 @@ class Cost extends \yii\db\ActiveRecord
     }
     
     /**
+     * 
+     * @param float $listprice
+     */
+    public function setListprice(float $listprice)
+    {
+        $this->listprice = $listprice;
+    }        
+    
+    /**
      * @var float
      */
-    public function getListPrice()
+    public function getListprice()
     {
        return $this->listprice ?: 0.00; 
     }
+    
+    /**
+     * @return string
+     */
+    public function getFrequency()
+    {
+        return $this->frequency;
+    }
+    
+    /**
+     * @return int
+     */
+    public function getCostcategory_id()
+    {
+        return $this->costcategory_id;
+    }        
+    
+    /**
+     * 
+     * @return int
+     */
+    public function getCostsubcategory_id()
+    {
+        return $this->costsubcategory_id;
+    }        
+
+    
 }

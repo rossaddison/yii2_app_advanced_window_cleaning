@@ -91,7 +91,8 @@ $this->registerJs($js);
                 ['label' => Html::button(Yii::t('app','Admin'),['class'=>'btn btn-info btn-lg']),'url'=> '','visible'=>$visible,
                  'items' => [
                             ['label' => str_repeat("&nbsp;", 2).Html::button(Yii::t('app','Signup a User'),['class'=>'btn btn-info btn-lg']), 'url' => ['/site/signup'],],
-                  ],
+                            ['label' => str_repeat("&nbsp;", 2).Html::button(Yii::t('app','Clear the cache'),['class'=>'btn btn-info btn-lg']), 'url' => ['/site/clear']],
+                    ],
                 ],
                 ['label' => Html::button(Yii::t('app','Quick Note'),['class'=>'btn btn-primary btn-lg']),'url'=> '/quicknote/create','visible'=>Yii::$app->user->can('editPermission'),
                  'items' => [                        

@@ -1,9 +1,8 @@
 <?php
+declare(strict_types=1); 
 
 namespace frontend\models;
 
-use Yii;
-use yii\data\Sort;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use frontend\models\Costheader;
@@ -11,11 +10,11 @@ use frontend\models\Company;
 
 class CostheaderSearch extends Costheader
 {
-    
-   public static function getDb()
-   {
-       return \frontend\components\Utilities::userdb();
-   }
+   
+    public static function getDb()
+    {
+        return \frontend\components\Utilities::userdb();
+    }
     
     public function rules()
     {
@@ -31,7 +30,11 @@ class CostheaderSearch extends Costheader
         return Model::scenarios();
     }
 
-    public function search($params)
+    /**
+     * @param array $params
+     * @return ActiveDataProvider
+     */
+    public function search(array $params)
     {
         $excludefullypaid = Company::findOne(1)->costheader_excludefullypaid; 
         if ($excludefullypaid === 1)

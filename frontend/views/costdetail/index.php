@@ -7,7 +7,7 @@ use frontend\models\Company;
 use kartik\icons\FontAwesomeAsset;
 use Yii;
 FontAwesomeAsset::register($this);
-$this->title = Yii::t('app','app','Costs to include');
+$this->title = Yii::t('app','Costs to include');
 $cost_date = DateTime::createFromFormat("Y-m-d", Costheader::findOne($id=Yii::$app->session['cost_header_id'])->cost_date)->format("l, d F Y");
 $pdfHeader = [
   'L' => [

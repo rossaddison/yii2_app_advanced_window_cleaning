@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1); 
 
 namespace frontend\controllers;
 
@@ -10,7 +11,6 @@ use frontend\models\CostdetailSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
-use yii\web\Session;
 use yii\filters\VerbFilter;
 
 class CostdetailController extends Controller
@@ -95,7 +95,7 @@ class CostdetailController extends Controller
             //if unit price and paid are not updated but paymenttype is updated.
             $output = '';
             if (isset($posted['unit_price'])) {
-              $output = Yii::$app->formatter->asDecimal($model->getUnitPrice(), 2);
+              $output = Yii::$app->formatter->asDecimal($model->getUnit_price(), 2);
             }
             if (isset($posted['paid'])) {
               $output = Yii::$app->formatter->asDecimal($model->getPaid(), 2);
@@ -193,7 +193,7 @@ class CostdetailController extends Controller
         foreach ($keylist as $key => $value)
         {
               $model = $this->findModel($value);
-              $model->setPaid($model->getUnitPrice());
+              $model->setPaid($model->getUnit_price());
               $model->save();
         }
       }
@@ -230,7 +230,7 @@ class CostdetailController extends Controller
     {
         $model = $this->findModel($id);
         $cost_detail_id = $model->getCost_detail_id();
-        $model->setPaid($model->getUnitPrice());
+        $model->setPaid($model->getUnit_price());
         $model->save();
         return $this->redirect(['view', 'id' => $cost_detail_id]);
     }
@@ -287,7 +287,7 @@ class CostdetailController extends Controller
       foreach ($keylist as $key => $value)
       {
         $model = $this->findModel($value);
-        $model->paymenttype = "Cash";
+        $model->setPaymenttype("Cash");
         $model->save();
       }
       }

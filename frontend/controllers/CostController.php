@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1); 
+
 namespace frontend\controllers;
 
 use Yii;
@@ -41,7 +43,7 @@ class CostController extends Controller
                 'access' => 
                             [
                             'class' => \yii\filters\AccessControl::class,
-                            'only' => ['create', 'update','view','delete','doit','subcatcost'],
+                            'only' => ['create', 'update','view','delete','copyit','subcatcost'],
                             'rules' => [
                             [
                               'allow' => true,
@@ -89,15 +91,15 @@ class CostController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Cost();
+        $cost = new Cost();
         $request = Yii::$app->request;
         $post = (array)$request->post();
-        if ($model->load($post) && $model->save()) {
-            $id = $model->getId();
+        if ($cost->load($post) && $cost->save()) {
+            $id = $cost->getId();
             return $this->redirect(['view', 'id' => $id]);
         } else {
             return $this->render('create', [
-                'model' => $model,
+                'model' => $cost,
             ]);
         }
     }
@@ -106,8 +108,8 @@ class CostController extends Controller
      * @return Response|string
      */
     public function actionView(int $id) {
-        $model=$this->findModel($id);
-        if ($model->load((array)Yii::$app->request->post()) && $model->save()) {
+        $cost = $this->findModel($id);
+        if ($cost->load((array)Yii::$app->request->post()) && $cost->save()) {
             if (!empty(Yii::$app->session)) {
                 Yii::$app->session->setFlash('kv-detail-success', Yii::t('app','Saved record successfully'));
             } else {
@@ -115,10 +117,10 @@ class CostController extends Controller
                 $session->open();
                 $session->setFlash('kv-detail-success', Yii::t('app','Saved record successfully'));
             }   
-            $id = $model->getId();
+            $id = $cost->getId();
             return $this->redirect(['view', 'id'=> $id]);
         } else {
-            return $this->render('view', ['model'=>$model]);
+            return $this->render('view', ['model'=>$cost]);
         }
     }
     
@@ -163,80 +165,103 @@ class CostController extends Controller
     * Purpose: Used to copy repeating costs from one daily clean to another dated daily clean
     * @return void
     */
-   public function actionCopyit()
+   public function actionDoit()
    {
+     /**
+      * @psalm-suppress UndefinedMagicPropertyFetch Yii::$app->session
+      */
+      $session = Yii::$app->session;
+      if ($session->isActive) {
+          $session->open(); 
+      } else {
+          $session = new Session();
+      }
+      //prevent cost duplicates
       //corder is the dropdownbox specific date's (w59:cost/index) cost header id
-      $cost_header_id = (array)Yii::$app->request->get('ccost');
+      /**
+       * @psalm-suppress RiskyCast
+       */ 
+      $cost_header_id = (int)Yii::$app->request->get('ccost');
       $keylist = (array)Yii::$app->request->get('keylist');
       //work through the costs that have been selected to be copied
       /**
        * @var int $key
-       * @var string $value 
+       * @var int $value 
        */
       foreach ($keylist as $key => $value)
       {
-        $model = Cost::findOne($value);
-        if (null!==$model) {
-            $session = new Session;
-            $session->open();
-            //prevent cost duplicates
+        $cost = Cost::findOne($value);
+        if ($cost) {            
             $q = new Query();
-            if  ($q->select('*')->from('works_costdetail')->where(['cost_header_id' => $cost_header_id])->andWhere(['cost_id'=>$value])->exists()) 
-                  {
-                    $session->setFlash('kv-detail-success', $cost_header_id ); 
-                    exit();
-                  }
-                  else {
-            $model2 = new Costdetail();
-            //the sales order id for the specific daily clean that we are copying to
-            $model2->cost_header_id = $cost_header_id;
-            $model2->paymenttype = "Cash";
-            if ($model->frequency === "Daily")
+            if  ($q->select('*')->from('works_costdetail')
+                                ->where(['cost_header_id' => $cost_header_id])
+                                ->andWhere(['cost_id'=>$value])->exists()) 
             {
-                    $date = strtotime("+1 day");
-                    $addeddate = date("Y-m-d" , $date);
-                    $model2->nextcost_date = $addeddate;
-            };
-            if ($model->frequency === "Weekly")
-            {
-                    $date = strtotime("+7 day");
-                    $addeddate = date("Y-m-d" , $date);
-                    $model2->nextcost_date = $addeddate;
-            };
-            if ($model->frequency === "Monthly")
-                {
-                   $date = strtotime("+30 day");
-                   $addeddate = date("Y-m-d" , $date);
-                   $model2->nextcost_date = $addeddate;
-                };
-            if ($model->frequency === "Fortnightly")
-                {
-                   $date = strtotime("+15 day");
-                   $addeddate = date("Y-m-d" , $date);
-                   $model2->nextcost_date = $addeddate;
-                };
-            if ($model->frequency === "Every two months")
-                {
-                   $date = strtotime("+60 day");
-                   $addeddate = date("Y-m-d" , $date);
-                   $model2->nextcost_date = $addeddate;
-                }; 
-            if ($model->frequency === "Other")
-                {
-                   $model2->nextcost_date = date("Y-m-d"); 
-                };
-            $model2->costcategory_id = $model->costcategory_id;
-            $model2->costsubcategory_id = $model->costsubcategory_id;
-            $model2->cost_id = $value;
-            $model2->carousal_id = null;
-            $model2->order_qty=1;
-            $model2->unit_price = $model->listprice;
-            $model2->line_total = $model2->unit_price;
-            $model2->paid = 0;
-            $model2->save();
+                $session->setFlash('kv-detail-success', $cost_header_id ); 
+                exit();
             }
-          } // null!==$model
+            else {
+            $costdetail = new Costdetail();
+            //the sales order id for the specific daily clean that we are copying to
+            $costdetail->setCost_header_id($cost_header_id);
+            $costdetail->setPaymenttype("Cash");
+            $costdetail->setPaymentreference(null);
+            $costdetail->setNextcost_date($this->frequency($cost->getFrequency()));
+            $costdetail->setCostcategory_id($cost->getCostcategory_id());
+            $costdetail->setCostsubcategory_id($cost->getCostsubcategory_id());
+            /**
+             * @psalm-suppress RedundantCastGivenDocblockType (int)$value
+             */
+            $costdetail->setCost_id((int)$value);
+            $costdetail->setCarousal_id(null);
+            $costdetail->setOrder_qty(1);
+            $costdetail->setUnit_price((float)$cost->getListprice());
+            $costdetail->setLine_total($costdetail->getUnit_price());
+            $costdetail->setPaid(0.00);
+            $costdetail->save() ? $session->setFlash('info','The costs have been copied across.') 
+                            : $session->setFlash('info','The costs have NOT been copied across.');
+            }
+          } // null!==$cost
         } // foreeach  
+    }
+    
+    /**
+     * @param string $frequency
+     * @return string
+     */
+    private function frequency(string $frequency) 
+    {
+        $addeddate= date("Y-m-d");
+        if ($frequency === "Daily")
+        {
+                $date = strtotime("+1 day");
+                $addeddate = date("Y-m-d" , $date);
+        }
+        if ($frequency === "Weekly")
+        {
+                $date = strtotime("+7 day");
+                $addeddate = date("Y-m-d" , $date);
+        }
+        if ($frequency === "Monthly")
+        {
+               $date = strtotime("+30 day");
+               $addeddate = date("Y-m-d" , $date);
+        }
+        if ($frequency === "Fortnightly")
+        {
+               $date = strtotime("+15 day");
+               $addeddate = date("Y-m-d" , $date);
+        }
+        if ($frequency === "Every two months")
+        {
+               $date = strtotime("+60 day");
+               $addeddate = date("Y-m-d" , $date);
+        } 
+        if ($frequency === "Other")
+        {
+               $addeddate = date("Y-m-d"); 
+        }
+        return $addeddate;
     }
     
     /**
@@ -255,7 +280,7 @@ class CostController extends Controller
              * @var int $parents[0]
              */
             $cat_id = $parents[0];
-            $out = self::getSubCatcostList($cat_id); 
+            $out = self::getSubCatcostList((string)$cat_id); 
             return Json::encode(['output'=>$out, 'selected'=>'']);
         }
     }
@@ -264,10 +289,10 @@ class CostController extends Controller
 
     /**
      * 
-     * @param int $costcode_id
+     * @param string $costcode_id
      * @return array
      */
-    public static function getSubCatcostList(int $costcode_id) {
+    public static function getSubCatcostList(string $costcode_id) {
        //find all the costs in the subcost 
         $data=Costsubcategory::find()
        ->where(['costcategory_id'=>$costcode_id])
@@ -307,8 +332,7 @@ class CostController extends Controller
      * @return array
      */
     public static function getCostListb(int $cat_id, int $subcat_id) {
-        $data = [];
-        $data=Cost::find()
+       $data = Cost::find()
        ->where(['costcategory_id'=>$cat_id])
        ->andWhere(['costsubcategory_id'=>$subcat_id])      
        ->select(['id', 'costnumber AS name'])->asArray()->all();
@@ -320,14 +344,19 @@ class CostController extends Controller
     */
    public function actionSlider()
    {
-        $session = new Session;
-        $session->open();
+        /**
+         * @psalm-suppress UndefinedMagicPropertyFetch Yii::$app->session
+         */
+        $session_slider = Yii::$app->session; 
+        if ($session_slider->isActive) {
+            $session_slider->open();
+        }    
         /**
          * @psalm-suppress PossiblyInvalidCast 
          */
-        $sliderfontcost = (string)Yii::$app->request->get('sliderfontcost');
-        $session->set('sliderfontcost', $sliderfontcost);
-        $font = (string)$session->get('sliderfontcost');
+        $sliderfontcostdetail = (string)Yii::$app->request->get('sliderfontcost');
+        $session_slider->set('sliderfontcost', $sliderfontcostdetail);
+        $font = (string)$session_slider->get('sliderfontcost');
         return $font;
    }
     
@@ -339,8 +368,8 @@ class CostController extends Controller
     */
    protected function findModel(int $id)
    {
-        if (($model = Cost::findOne($id)) !== null) {
-            return $model;
+        if (($cost = Cost::findOne($id)) !== null) {
+            return $cost;
         } else {
             throw new NotFoundHttpException(Yii::t('app','The requested page does not exist.'));
         }

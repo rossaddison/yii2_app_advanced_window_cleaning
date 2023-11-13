@@ -126,7 +126,7 @@ echo Slider::widget([
             'header'=>'Frequency',
             'attribute'=>'frequency',
             'value' => function ($data) {
-                    return $data->frequency; 
+                return $data->frequency; 
             },
             'filter'=> Html::activeDropDownList($searchModel,'frequency',ArrayHelper::map(Cost::find()->orderBy('frequency')->asArray()->all(),'frequency','frequency'),['options' => ['style'=> 'font-size:'.Yii::$app->session['sliderfontcost'].'px'],'prompt'=>'Frequency...']), 
     ],     
@@ -180,9 +180,9 @@ echo kartik\grid\GridView::widget([
     'containerOptions' => ['style'=>'overflow: auto'], 
     'pjax' => true,
     'pjaxSettings' =>[
-                      'neverTimeout'=>true,
-                      'options'=>['id'=>'kv-unique-id-47'],                      
-                     ], 
+        'neverTimeout'=>true,
+        'options'=>['id'=>'kv-unique-id-47'],                      
+    ], 
     'bordered' => true,
     'striped' => true,
     'condensed' => false,
@@ -195,12 +195,12 @@ echo kartik\grid\GridView::widget([
     'heading'=> Company::findOne(1)->name . " - " . Company::findOne(1)->telephone ,
     ],
     'exportConfig' => [
-                   GridView::CSV => ['label' => 'Export as CSV','config' => $config_array, 'filename' => 'Costs_Printed_'.date('d-M-Y')],
-                   GridView::HTML => ['label' => 'Export as HTML','config' => $config_array, 'filename' => 'Costs_Printed_'.date('d-M-Y')],
-                   GridView::PDF => [ 'label' => 'Export as PDF','config' => $config_array, 'filename' => 'Costs_Printed_'.date('d-M-Y')], 
-                   GridView::EXCEL=> ['label' => 'Export as EXCEL', 'filename' => 'Costs_Printed_'.date('d-M-Y')],
-                   GridView::TEXT=> ['label' => 'Export as TEXT', 'filename' => 'Costs_Printed_'.date('d-M-Y')],
-                ],
+        GridView::CSV => ['label' => 'Export as CSV','config' => $config_array, 'filename' => 'Costs_Printed_'.date('d-M-Y')],
+        GridView::HTML => ['label' => 'Export as HTML','config' => $config_array, 'filename' => 'Costs_Printed_'.date('d-M-Y')],
+        GridView::PDF => [ 'label' => 'Export as PDF','config' => $config_array, 'filename' => 'Costs_Printed_'.date('d-M-Y')], 
+        GridView::EXCEL=> ['label' => 'Export as EXCEL', 'filename' => 'Costs_Printed_'.date('d-M-Y')],
+        GridView::TEXT=> ['label' => 'Export as TEXT', 'filename' => 'Costs_Printed_'.date('d-M-Y')],
+    ],
   ]);
 ?> 
 

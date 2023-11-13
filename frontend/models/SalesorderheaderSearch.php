@@ -1,9 +1,8 @@
 <?php
+declare(strict_types=1); 
 
 namespace frontend\models;
 
-use Yii;
-use yii\data\Sort;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use frontend\models\Salesorderheader;

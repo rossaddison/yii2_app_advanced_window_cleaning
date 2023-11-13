@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1); 
+
 namespace frontend\models;
 
 use frontend\models\Costheader;
@@ -10,16 +12,7 @@ use Yii;
 
 class Costdetail extends \yii\db\ActiveRecord
 {
-    public $line_total;
-    public $order_qty;
-    public $carousal_id;
-    public $cost_id;
-    public $costcategory_id;
-    public $costsubcategory_id;
-    public $nextcost_date;
-    public $cost_header_id;
-    public $paymenttype;
-    
+        
     /**
      * @inheritdoc
      */
@@ -46,10 +39,11 @@ class Costdetail extends \yii\db\ActiveRecord
             [['order_qty'],'default','value'=>1],
             [['paymenttype'],'string'],
             [['paymenttype'],'default','value'=>'Cash'],
+            [['paymentreference'],'default','value'=> null],
             [['paymentreference'],'string'],            
-            [['line_total'],'default','value'=>1],
+            [['line_total'],'default','value'=>1],            
             [['order_qty'], 'number'],
-            [['unit_price','paid'], 'float','min'=>0.00,'max'=>10000.00],
+            [['unit_price','paid'], 'number','min'=>0.00,'max'=>10000.00],
             [['unit_price','paid','order_qty'], 'default','value' => 0.00],
             [['carousal_id'], 'default','value' => null],
             [['carousal_id'], 'exist', 'skipOnError' => true, 'targetClass' => Carousal::className(), 'targetAttribute' => ['carousal_id' => 'id']],
@@ -78,6 +72,38 @@ class Costdetail extends \yii\db\ActiveRecord
             'paid' => Yii::t('app','Paid'),
             'modified_date' => Yii::t('app','Modified Date'),
         ];
+    }
+    
+    /**
+     * @return int
+     */
+    public function getCostsubcategory_id() 
+    {
+        return $this->costsubcategory_id;
+    }
+    
+    /**
+     * @param int $costsubcategory_id
+     * @return void
+     */
+    public function setCostsubcategory_id(int $costsubcategory_id)
+    {
+        $this->costsubcategory_id = $costsubcategory_id;
+    }        
+    
+    /**
+     * @return int
+     */
+    public function getCostcategory_id() 
+    {
+        return $this->costcategory_id;
+    }
+    
+    /**
+     * @param int $costcategory_id
+     */
+    public function setCostcategory_id(int $costcategory_id) {
+        $this->costcategory_id = $costcategory_id;
     }
     
     /**
@@ -112,7 +138,7 @@ class Costdetail extends \yii\db\ActiveRecord
      * 
      * @param float $price
      */
-    public function setUnitPrice(float $price)
+    public function setUnit_price( $price)
     {
         $this->unit_price = $price;
     }
@@ -121,27 +147,10 @@ class Costdetail extends \yii\db\ActiveRecord
      * 
      * @return float
      */
-    public function getUnitPrice()
+    public function getUnit_price()
     {
         return $this->unit_price;
     } 
-    
-    /**
-     * @param float $line_total
-     */
-    public function setLineTotal(float $line_total)
-    {
-        $this->line_total = $line_total;
-    }
-    
-    /**
-     * 
-     * @return float
-     */
-    public function getLineTotal()
-    {
-        return $this->line_total;
-    }      
     
     /**
      * @return float
@@ -155,10 +164,28 @@ class Costdetail extends \yii\db\ActiveRecord
      * 
      * @param float $paid
      */
-    public function setPaid(float $paid)
+    public function setPaid( $paid)
     {
         $this->paid = $paid;
     }
+    
+    /**
+     * 
+     * @return int 
+     */
+    public function getCarousal_id()
+    {
+        return $this->carousal_id;
+    } 
+    
+    /**
+     * 
+     * @param ?int $carousal_id
+     */
+    public function setCarousal_id(?int $carousal_id)
+    {
+        $this->carousal_id = $carousal_id;
+    } 
     
     /**
      * 
@@ -171,10 +198,144 @@ class Costdetail extends \yii\db\ActiveRecord
     
     /**
      * 
+     * @param int $cost_detail_id
+     */
+    public function setCost_detail_id(int $cost_detail_id)
+    {
+        $this->cost_detail_id = $cost_detail_id;
+    }        
+    
+    /**
+     * 
      * @return int
      */
     public function getCost_header_id()
     {
         return $this->cost_header_id;
-    }        
+    }
+    
+    /**
+     * 
+     * @param int $cost_header_id
+     */
+    public function setCost_header_id(int $cost_header_id)
+    {
+        $this->cost_header_id = $cost_header_id;
+    }
+    
+    /**
+     * @return int
+     */
+    public function getCost_id()
+    {
+        return $this->cost_id;
+    }
+    
+    /**
+     * 
+     * @param int $cost_id
+     */
+    public function setCost_id(int $cost_id)
+    {
+        $this->cost_id = $cost_id;
+    }
+    
+    /**
+     * @return int
+     */
+    public function getOrder_qty()
+    {
+        return $this->order_qty;
+    }
+    
+    /**
+     * 
+     * @param  int $order_qty
+     */
+    public function setOrder_qty(int $order_qty)
+    {
+        $this->order_qty = $order_qty;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getNextcost_date()
+    {
+        return $this->nextcost_date ?: date('Y-m-d');
+    }
+    
+    /**
+     * 
+     * @param  string $nextcost_date
+     */
+    public function setNextcost_date(string $nextcost_date)
+    {
+        $this->nextcost_date = $nextcost_date;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getCost_date()
+    {
+        return $this->cost_date;
+    }
+    
+    /**
+     * 
+     * @param  string $cost_date
+     */
+    public function setCost_date(string $cost_date)
+    {
+        $this->cost_date = $cost_date;
+    }
+    
+    /**
+     * @return float
+     */
+    public function getLine_total()
+    {
+        return $this->line_total;
+    }
+    
+    /**
+     * @param  float $line_total
+     */
+    public function setLine_total(float $line_total)
+    {
+        $this->line_total = $line_total;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getPaymenttype()
+    {
+        return $this->paymenttype;
+    }
+    
+    /**
+     * @param  string $paymenttype
+     */
+    public function setPaymenttype(string $paymenttype)
+    {
+        $this->paymenttype = $paymenttype;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getPaymentreference()
+    {
+        return $this->paymentreference;
+    }
+    
+    /**
+     * @param  ?string $paymentreference
+     */
+    public function setPaymentreference(?string $paymentreference)
+    {
+        $this->paymentreference = $paymentreference;
+    }
 }

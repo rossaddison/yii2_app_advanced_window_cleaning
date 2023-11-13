@@ -15,6 +15,10 @@ return [
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],
+        'clearFrontendCache' => [
+            'class' => 'yii\caching\FileCache',
+            'cachePath' => Yii::getAlias('@frontend') . '/runtime/cache'
+        ],
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
@@ -40,7 +44,8 @@ return [
             'enablePrettyUrl' => true,
             'enableStrictParsing' => false,
             'showScriptName' => false,
-            //'baseUrl'=>'/',
+            // @see config/common/
+            'baseUrl'=>'/',
             'rules' => [
                 'your-settings/<action:\w+>/<id:\d+>'=>'company/<action>',
                 'work-area/<action:\w+>/<id:\d+>' => 'productcategory/<action>',
