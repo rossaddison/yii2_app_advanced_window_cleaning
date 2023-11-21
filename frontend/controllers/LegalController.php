@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace frontend\controllers;
 
@@ -7,6 +8,7 @@ use frontend\models\Legal;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\behaviors\TimestampBehavior;
@@ -42,18 +44,20 @@ class LegalController extends Controller
                 ],
             ],
              'timestamp' => 
-                            [
-                            'class' =>TimestampBehavior::class,
-                            'attributes' => [
-                                                ActiveRecord::EVENT_BEFORE_INSERT => [
-                                                'last_updated'],
-                                                ActiveRecord::EVENT_BEFORE_UPDATE => ['last_updated'],
-                                            ],
+            [
+            'class' =>TimestampBehavior::class,
+            'attributes' => [
+                                ActiveRecord::EVENT_BEFORE_INSERT => [
+                                'last_updated'],
+                                ActiveRecord::EVENT_BEFORE_UPDATE => ['last_updated'],
                             ],
+            ],
         ];
     }
 
-   
+    /**
+     * @return string
+     */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
@@ -65,21 +69,26 @@ class LegalController extends Controller
         ]);
     }
 
-   
-    public function actionView($id)
+    /**
+     * @param int $id
+     * @return string
+     */
+    public function actionView(int $id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
 
-    
+    /**
+     * @return Response|string 
+     */
     public function actionCreate()
     {
         $model = new Legal();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load((array)Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->getId()]);
         }
 
         return $this->render('create', [
@@ -87,13 +96,16 @@ class LegalController extends Controller
         ]);
     }
 
-    
-    public function actionUpdate($id)
+    /**
+     * @param int $id
+     * @return Response|string
+     */
+    public function actionUpdate(int $id)
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load((array)Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->getId()]);
         }
 
         return $this->render('update', [
@@ -101,20 +113,27 @@ class LegalController extends Controller
         ]);
     }
 
-    
-    public function actionDelete($id)
+    /**
+     * @param int $id
+     * @return Response 
+     */
+    public function actionDelete(int $id)
     {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
-    protected function findModel($id)
+    /**
+     * @param int $id
+     * @return Legal 
+     * @throws NotFoundHttpException
+     */
+    protected function findModel(int $id)
     {
         if (($model = Legal::findOne($id)) !== null) {
             return $model;
         }
-
         throw new NotFoundHttpException(Yii::t('app','The requested page does not exist.'));
     }
 }

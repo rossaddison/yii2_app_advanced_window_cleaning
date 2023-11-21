@@ -4,7 +4,12 @@ declare(strict_types=1);
 namespace frontend\models;
 
 use Yii;
- 
+
+/**
+ * @property int $product_id
+ * @property int $productcategory_id
+ * @property int $productsubcategory_id
+ */
 class KrajeeProductTree extends \kartik\tree\models\Tree
 {
     public static function getDb()

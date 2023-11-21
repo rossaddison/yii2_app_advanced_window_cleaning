@@ -13,6 +13,7 @@
     <directory name="frontend"/>
     <ignoreFiles>
         <directory name="vendor"/>
+        <directory name="frontend/web/assets"/>        
     </ignoreFiles>
 </projectFiles>    
 </psalm>

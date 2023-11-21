@@ -1,5 +1,5 @@
 <?php
-Namespace frontend\components;
+namespace frontend\components;
     
 use Yii;
 use yii\base\Component;

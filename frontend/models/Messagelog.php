@@ -68,4 +68,13 @@ class Messagelog extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Salesorderdetail::className(), ['sales_order_detail_id' => 'salesorderdetail_id']);
     }
+    
+    /**
+     * 
+     * @return int $id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }        
 }

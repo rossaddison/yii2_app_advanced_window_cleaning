@@ -5,6 +5,11 @@ namespace frontend\models;
 
 use Yii;
 
+/**
+ * @property int $id
+ * @property string $importfile_source_filename
+ * @property string $importfile_web_filename
+ */
 class Importhouses extends \yii\db\ActiveRecord
 {
     /**
@@ -14,10 +19,10 @@ class Importhouses extends \yii\db\ActiveRecord
     public $importfile;
 
     
-   public static function getDb()
-   {
-       return \frontend\components\Utilities::userdb();
-   }
+    public static function getDb()
+    {
+        return \frontend\components\Utilities::userdb();
+    }
     
     
     public static function tableName()

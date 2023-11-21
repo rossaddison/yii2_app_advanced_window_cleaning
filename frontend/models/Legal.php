@@ -51,4 +51,12 @@ class Legal extends \yii\db\ActiveRecord
             'last_updated' => Yii::t('app','Last Updated'),
         ];
     }
+    
+    /**
+     * @return int $id 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 }

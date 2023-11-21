@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1); 
+
 namespace frontend\controllers;
 
 use Yii;
@@ -6,6 +8,7 @@ use frontend\models\Employee;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 use yii\filters\VerbFilter;
 
 class EmployeeController extends Controller
@@ -72,8 +75,8 @@ class EmployeeController extends Controller
     {
         $model = new Employee();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load((array)Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->getId()]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -82,17 +85,16 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Updates an existing Employee model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
+     * 
+     * @param int $id
+     * @return Response|string
      */
-    public function actionUpdate($id)
+    public function actionUpdate(int $id)
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load((array)Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->getId()]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -103,16 +105,16 @@ class EmployeeController extends Controller
     /**
      * Deletes an existing Employee model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
+     * @param int $id
+     * @return Response
      */
-    public function actionDelete($id)
+    public function actionDelete(int $id)
     {
         try{
         $this->findModel($id)->delete();
         return $this->redirect(['index']);
-        } catch(IntegrityException $e) {
-              throw new \yii\web\HttpException(404, Yii::t('app','First delete the Daily Cleans that the employee is linked to then you will be able to delete this employee.'));
+        } catch(\yii\db\IntegrityException $e) {
+              throw new \yii\web\HttpException(404, Yii::t('app','First delete the Daily Cleans that the employee is linked to then you will be able to delete this employee. Exception: ').$e);
         }
     }
 
@@ -123,7 +125,7 @@ class EmployeeController extends Controller
      * @return Employee the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel(int $id)
     {
         if (($model = Employee::findOne($id)) !== null) {
             return $model;

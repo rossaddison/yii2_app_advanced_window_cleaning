@@ -42,6 +42,22 @@ Class Easy extends \yii\base\Model
         ];
     }
     
+    /**
+     * @return int
+     */
+    public function getStart()
+    {
+        return $this->start;
+    }
+    
+    /**
+     * @return int
+     */
+    public function getFinish()
+    {
+        return $this->finish;
+    }
+       
 }
     
     

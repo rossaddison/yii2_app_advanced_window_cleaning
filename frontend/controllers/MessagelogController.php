@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace frontend\controllers;
 
@@ -7,6 +8,7 @@ use frontend\models\Messagelog;
 use frontend\models\MessagelogSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 use yii\filters\VerbFilter;
 
 class MessagelogController extends Controller
@@ -33,12 +35,15 @@ class MessagelogController extends Controller
             ], 
         ];
     }
-
+    
+    /**
+     * 
+     * @return string
+     */
     public function actionIndex()
     {
             $searchModel = new MessagelogSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-            $dataProvider->sort->sortParam = false;
             $dataProvider->setSort([
             'attributes' => [
                     'product_id.name' => [
@@ -64,19 +69,28 @@ class MessagelogController extends Controller
         ]);
     }
 
-    public function actionView($id)
+    /**
+     * 
+     * @param int $id
+     * @return mixed
+     */
+    public function actionView(int $id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
 
+    /**
+     * 
+     * @return Response|string
+     */
     public function actionCreate()
     {
         $model = new Messagelog();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load((array)Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->getId()]);
         }
 
         return $this->render('create', [
@@ -84,12 +98,17 @@ class MessagelogController extends Controller
         ]);
     }
 
-    public function actionUpdate($id)
+    /**
+     * 
+     * @param int $id
+     * @return Response|string
+     */
+    public function actionUpdate(int $id)
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load((array)Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->getId()]);
         }
 
         return $this->render('update', [
@@ -97,22 +116,33 @@ class MessagelogController extends Controller
         ]);
     }
 
-    public function actionDelete($id)
+    /**
+     * 
+     * @param int $id
+     * @return Response
+     * @throws \yii\web\HttpException
+     */
+    public function actionDelete(int $id)
     {
         try{
         $this->findModel($id)->delete();
         return $this->redirect(['index']);
-        } catch(IntegrityException $e) {
-              throw new \yii\web\HttpException(404, Yii::t('app','First delete the daily clean items this message was sent to then you will be able to delete this message.'));
+        } catch(\yii\db\IntegrityException $e) {
+              throw new \yii\web\HttpException(404, Yii::t('app','First delete the daily clean items this message was sent to then you will be able to delete this message. Exception: ').$e);
         }
     }
 
-    protected function findModel($id)
+    /**
+     * 
+     * @param int $id
+     * @return Messagelog
+     * @throws NotFoundHttpException
+     */
+    protected function findModel(int $id)
     {
         if (($model = Messagelog::findOne($id)) !== null) {
             return $model;
         }
-
         throw new NotFoundHttpException(Yii::t('app','The requested page does not exist.'));
     }
 }

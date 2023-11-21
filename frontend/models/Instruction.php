@@ -2,7 +2,6 @@
 declare(strict_types=1); 
 
 namespace frontend\models;
-use yii\db\Expression;
 
 use Yii;
 
@@ -42,12 +41,34 @@ class Instruction extends \yii\db\ActiveRecord
         ];
     }
     
-   public function beforeSave($insert)
+   /**
+    * 
+    * @param bool $insert
+    * @return bool
+    */ 
+   public function beforeSave(bool $insert)
     {
         if (parent::beforeSave($insert)) {
-             $this->modified_date = new Expression('NOW()');    
+            $this->modified_date = Date('Y-m-d');    
             return true;
         }
         return false;
     }
+    
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }        
+    
+    /**
+     * 
+     * @param int $id
+     */
+    public function setId(int $id)
+    {
+        $this->id = $id;
+    }        
 }

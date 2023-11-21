@@ -42,4 +42,12 @@ class Paymentrequest extends \yii\db\ActiveRecord
             'modified_date' => Yii::t('app','Modified Date'),
         ];
     }
+    
+    /**
+     * @return int $id
+     */
+    public function getId()
+    {
+        return $this->id;
+    } 
 }

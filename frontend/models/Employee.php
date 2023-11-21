@@ -71,4 +71,12 @@ class Employee extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Salesorderheader::className(), ['employee_id' => 'id']);
     }
+    
+    /**
+     * @return int $id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }        
 }

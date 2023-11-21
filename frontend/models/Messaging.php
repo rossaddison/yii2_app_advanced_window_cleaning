@@ -36,4 +36,12 @@ class Messaging extends \yii\db\ActiveRecord
             'message' => Yii::t('app','Message'),
         ];
     }
+    
+    /**
+     * @return int $id
+     */
+    public function getId()
+    {
+        return $this->id;
+    } 
 }

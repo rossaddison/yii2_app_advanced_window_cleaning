@@ -7,14 +7,11 @@ use Yii;
 
 class Costsubcategory extends \yii\db\ActiveRecord
 {
-    
-    
+        
     public static function getDb()
-   {
+    {
        return \frontend\components\Utilities::userdb();
-   }
-    
-    
+    }
     
     public static function tableName()
     {
@@ -50,5 +47,12 @@ class Costsubcategory extends \yii\db\ActiveRecord
         return $this->hasOne(Costcategory::className(), ['id' => 'costcategory_id']);
     }
     
-    
+    /**
+     * 
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }        
 }

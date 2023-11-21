@@ -9,7 +9,6 @@ use frontend\models\Costsubcategory;
 
 class CostsubcategorySearch extends Costsubcategory
 {
-    
     public function rules()
     {
         return [
@@ -20,11 +19,14 @@ class CostsubcategorySearch extends Costsubcategory
     
     public function scenarios()
     {
-        
         return Model::scenarios();
     }
     
-    public function search($params)
+    /**
+     * @param array $params
+     * @return ActiveDataProvider
+     */
+    public function search(array $params)
     {
         $query = Costsubcategory::find()->orderBy('name');
         

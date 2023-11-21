@@ -81,6 +81,7 @@
             "backend\\tests\\": ["backend/tests/", "backend/tests/_support"],
             "frontend\\tests\\": ["frontend/tests/", "frontend/tests/_support"],
             "frontend\\models\\": ["frontend/models/"],
+            "frontend\\components\\": ["frontend/components/"],
             "frontend\\controllers\\": ["frontend/controllers/"]
         }
     },

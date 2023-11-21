@@ -15,12 +15,19 @@ class Historylinesearch extends Historyline
         return Model::scenarios();
     }
 
-    public function search($params)
+    /**
+     * @param array $params
+     * @return ActiveDataProvider
+     */
+    public function search(array $params)
     {
         $query = Historyline::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
             'db'=> \frontend\components\Utilities::userdb(),
         ]);
 
